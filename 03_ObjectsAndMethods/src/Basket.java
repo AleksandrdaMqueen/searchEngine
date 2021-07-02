@@ -4,8 +4,37 @@ public class Basket {
     private String items = "";
     private int totalPrice = 0;
     private int limit;
+    private static int totalPriceOfProducts = 0;
+    private static int totalCountOfProducts = 0 ;
+
+    public static int getAveargePriceOfBasket(){
+        return totalPriceOfProducts / count;
+    }
+
+    public static double getAveragePriceOfProduct(){
+        return totalPriceOfProducts / totalCountOfProducts;
+    }
+
+    public void increaseTotalPriceOfProducts(int totalPriceOfProducts) {
+        Basket.totalPriceOfProducts = Basket.totalPriceOfProducts + totalPriceOfProducts;
+    }
+
+    public void increaseTotalCountOfProducts(int totalCountOfProducts){
+        Basket.totalCountOfProducts = Basket.totalCountOfProducts + totalCountOfProducts;
+    }
+
+    public static int getTotalPriceOfProducts() {
+        return totalPriceOfProducts;
+    }
+
+    public static int getTotalCountOfProducts(){
+        return totalCountOfProducts;
+    }
 
     public Basket() {
+        totalPriceOfProducts = totalPriceOfProducts + totalPrice;
+        increaseTotalPriceOfProducts(0);
+        increaseTotalCountOfProducts(0);
         increaseCount(1);
         items = "Список товаров:";
         this.limit = 1000000;
@@ -30,6 +59,7 @@ public class Basket {
         Basket.count = Basket.count + count;
     }
 
+
     public void add(String name, int price) {
         add(name, price, 1);
     }
@@ -50,8 +80,10 @@ public class Basket {
         }
 
         items = items + "\n" + name + " - " +
-            count + " шт. - " + price;
+                count + " шт. - " + price;
         totalPrice = totalPrice + count * price;
+        totalPriceOfProducts = totalPriceOfProducts + price * count;
+        totalCountOfProducts = totalCountOfProducts + count;
     }
 
     public void clear() {
