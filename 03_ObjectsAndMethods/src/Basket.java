@@ -1,38 +1,37 @@
 public class Basket {
 
-    private static int count = 0;
+    public static int count = 0;
     private String items = "";
-    private int totalPrice = 0;
+    private static int totalPrice = 0;
     private int limit;
-    private static int totalPriceOfProducts = 0;
-    private static int totalCountOfProducts = 0 ;
+    public static int totalPriceOfProducts = 0;
+    public static int totalCountOfProducts = 0 ;
 
     public static int getAveargePriceOfBasket(){
         return totalPriceOfProducts / count;
     }
 
-    public static double getAveragePriceOfProduct(){
-        return totalPriceOfProducts / totalCountOfProducts;
+    public static double getAveragePriceOfProducts(){
+        return  totalPriceOfProducts/ totalCountOfProducts ;
     }
 
-    public void increaseTotalPriceOfProducts(int totalPriceOfProducts) {
+    public static void increaseTotalPriceOfProducts(int totalPriceOfProducts) {
         Basket.totalPriceOfProducts = Basket.totalPriceOfProducts + totalPriceOfProducts;
     }
 
-    public void increaseTotalCountOfProducts(int totalCountOfProducts){
+    public static void increaseTotalCountOfProducts(int totalCountOfProducts){
         Basket.totalCountOfProducts = Basket.totalCountOfProducts + totalCountOfProducts;
     }
 
-    public static int getTotalPriceOfProducts() {
+    public  int getTotalPriceOfProducts() {
         return totalPriceOfProducts;
     }
 
-    public static int getTotalCountOfProducts(){
+    public  int getTotalCountOfProducts(){
         return totalCountOfProducts;
     }
 
     public Basket() {
-        totalPriceOfProducts = totalPriceOfProducts + totalPrice;
         increaseTotalPriceOfProducts(0);
         increaseTotalCountOfProducts(0);
         increaseCount(1);
@@ -47,11 +46,12 @@ public class Basket {
 
     public Basket(String items, int totalPrice) {
         this();
+        totalPriceOfProducts = totalPriceOfProducts + totalPrice;
         this.items = this.items + items;
         this.totalPrice = totalPrice;
     }
 
-    public static int getCount() {
+    public  int getCount() {
         return count;
     }
 
@@ -75,15 +75,15 @@ public class Basket {
         }
 
         if (error) {
-            System.out.println("Error occured :(");
+            System.out.println("Error occurred :(");
             return;
         }
 
         items = items + "\n" + name + " - " +
                 count + " шт. - " + price;
         totalPrice = totalPrice + count * price;
-        totalPriceOfProducts = totalPriceOfProducts + price * count;
-        totalCountOfProducts = totalCountOfProducts + count;
+        increaseTotalPriceOfProducts(count* price);
+        increaseTotalCountOfProducts(count);
     }
 
     public void clear() {
@@ -108,3 +108,4 @@ public class Basket {
         }
     }
 }
+
