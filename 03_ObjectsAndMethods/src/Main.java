@@ -1,6 +1,5 @@
 public class Main {
 
-
     public static void main(String[] args) {
         Basket basket = new Basket();
         basket.add("xleb", 2, 6);
@@ -10,10 +9,11 @@ public class Main {
         basket.add("oil",8,1);
         Basket basket1 = new Basket();
         basket1.add("Pomidor",1,5);
-        System.out.println("Общее кол-во корзин: " + Basket.count);
-        System.out.println("Сумма всех товаров: " + Basket.totalPriceOfProducts);
-        System.out.println("Общее кол-во товаров: " + Basket.totalCountOfProducts);
-        System.out.println("Средняя цена всех корзин:" + Basket.getAveragePriceOfProducts());
+        System.out.println("Общее кол-во корзин: " + Basket.getCount());
+        System.out.println("Сумма всех товаров: " + Basket.getTotalPriceOfProducts());
+        System.out.println("Общее кол-во товаров: " + Basket.getTotalCountOfProducts());
         System.out.println("Среднее значение корзины: " + Basket.getAveargePriceOfBasket());
+        System.out.println("Средняя цена всех корзин:" + Basket.getAveragePriceOfProducts());
+
     }
 }
