@@ -1,33 +1,33 @@
 public class Basket {
 
-    public static int count = 0;
+    private static double count = 0;
     private String items = "";
     private static int totalPrice = 0;
     private int limit;
-    public static int totalPriceOfProducts = 0;
-    public static int totalCountOfProducts = 0 ;
+    private static double totalPriceOfProducts = 0;
+    private static double totalCountOfProducts = 0 ;
 
-    public static int getAveargePriceOfBasket(){
-        return totalPriceOfProducts / count;
+    public static double getAveargePriceOfBasket(){
+        return totalPriceOfProducts /  count;
     }
 
     public static double getAveragePriceOfProducts(){
-        return  totalPriceOfProducts/ totalCountOfProducts ;
+        return   totalPriceOfProducts/ totalCountOfProducts ;
     }
 
-    public static void increaseTotalPriceOfProducts(int totalPriceOfProducts) {
+    private static void increaseTotalPriceOfProducts(int totalPriceOfProducts) {
         Basket.totalPriceOfProducts = Basket.totalPriceOfProducts + totalPriceOfProducts;
     }
 
-    public static void increaseTotalCountOfProducts(int totalCountOfProducts){
+    private static void increaseTotalCountOfProducts(int totalCountOfProducts){
         Basket.totalCountOfProducts = Basket.totalCountOfProducts + totalCountOfProducts;
     }
 
-    public  int getTotalPriceOfProducts() {
+    public static double getTotalPriceOfProducts() {
         return totalPriceOfProducts;
     }
 
-    public  int getTotalCountOfProducts(){
+    public static double getTotalCountOfProducts(){
         return totalCountOfProducts;
     }
 
@@ -51,11 +51,11 @@ public class Basket {
         this.totalPrice = totalPrice;
     }
 
-    public  int getCount() {
+    public static double getCount() {
         return count;
     }
 
-    public static void increaseCount(int count) {
+    private static void increaseCount(int count) {
         Basket.count = Basket.count + count;
     }
 
@@ -91,7 +91,7 @@ public class Basket {
         totalPrice = 0;
     }
 
-    public int getTotalPrice() {
+    public static int getTotalPrice() {
         return totalPrice;
     }
 
@@ -108,4 +108,5 @@ public class Basket {
         }
     }
 }
+
 
