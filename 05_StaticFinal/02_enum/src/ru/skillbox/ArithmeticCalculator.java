@@ -6,12 +6,12 @@ public class ArithmeticCalculator {
         this.b = b;
     }
 
-    private static int b;
-    private static int a;
+    private  int b;
+    private  int a;
     public static Operation type;
     public static int result;
 
-    public static int getA() {
+    public  int getA() {
         return a;
     }
 
@@ -19,8 +19,7 @@ public class ArithmeticCalculator {
         return type;
     }
 
-
-    public static int getB() {
+    public  int getB() {
         return b;
     }
 
@@ -29,7 +28,7 @@ public class ArithmeticCalculator {
     }
 
 
-    public static int calculate(Operation type) {
+    public  int calculate(Operation type) {
         if (type == Operation.ADD) {
             return a + b;
 
@@ -42,5 +41,6 @@ public class ArithmeticCalculator {
 
         return result;
     }
+
 
 }
