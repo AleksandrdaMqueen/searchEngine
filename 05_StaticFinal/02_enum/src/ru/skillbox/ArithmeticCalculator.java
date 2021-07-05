@@ -1,8 +1,15 @@
 public class ArithmeticCalculator {
+
+
+    public ArithmeticCalculator(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
     private static int b;
     private static int a;
     public static Operation type;
-    private static int result;
+    public static int result;
 
     public static int getA() {
         return a;
@@ -22,27 +29,18 @@ public class ArithmeticCalculator {
     }
 
 
-    public ArithmeticCalculator() {
-        this.a = a;
-        this.b = b;
-        this.type = type;
-        this.result = result;
-
-    }
-
-    public static void calculate(int a, int b, Operation type) {
+    public static int calculate(Operation type) {
         if (type == Operation.ADD) {
-            int result = a + b;
-            System.out.println("Результат сложния: " + result);
+            return a + b;
+
         } else if (type == Operation.MULTIPLY) {
-            int result = a * b;
-            System.out.println("Результат умножения: " + result);
+            return a * b;
         } else if (type == Operation.SUBTRACT) {
-            int result = a - b;
-            System.out.println("Результат вычетания: " + result);
+            return a - b;
         }
 
 
+        return result;
     }
 
 }
