@@ -10,8 +10,6 @@ public class Computer {
     //Getter, Setter
 
 
-
-
     public Computer setRam(RAM ram) {
         return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
     }
@@ -67,12 +65,26 @@ public class Computer {
         this.keyboard = keyboard;
         this.name = name;
     }
+
     //================================================================================================================================================================
     //method
-    public Computer countTotalWeight(){
-        return Keyboard.getWeight() + Display.getWeight();
+
+    @Override
+    public String toString() {
+        return "Computer" + '\n' +
+                "cpu=" + cpu + '\n' +
+                ", ram=" + ram + '\n' +
+                ", hdd=" + hdd + '\n' +
+                ", display=" + display + '\n' +
+                ", keyboard=" + keyboard + '\n' +
+                ", vendor='" + vendor + '\'' + '\n' +
+                ", name='" + name + '\''
+                ;
+    }
 
 
+    public  double countWeight(){
+        return display.getWeight() + keyboard.getWeight() + hdd.getWeight() + ram.getWeight() + cpu.getWeight();
     }
 
 
