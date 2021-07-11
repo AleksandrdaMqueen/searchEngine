@@ -1,10 +1,10 @@
-public final class Cpu {
-    private final Cpu manufacturer;
-    private final Cpu weight;
-    private final Cpu frequency;
-    private final Cpu numberOfCores;
+ublic final class Cpu {
+    private final int manufacturer;
+    private final double weight;
+    private final int frequency;
+    private final int numberOfCores;
 
-    public Cpu(Cpu frequency, Cpu numberOfCores, Cpu manufacturer, Cpu weight) {
+    public Cpu(int frequency, int numberOfCores, int manufacturer, int weight) {
         this.frequency = frequency;
         this.numberOfCores = numberOfCores;
         this.manufacturer = manufacturer;
@@ -12,19 +12,19 @@ public final class Cpu {
     }
 
 
-    public Cpu getFrequency() {
+    public int getFrequency() {
         return frequency;
     }
 
-    public Cpu getNumberOfCores() {
+    public int getNumberOfCores() {
         return numberOfCores;
     }
 
-    public Cpu getManufacturer() {
+    public int getManufacturer() {
         return manufacturer;
     }
 
-    public Cpu getWeight() {
+    public double getWeight() {
         return weight;
     }
 
