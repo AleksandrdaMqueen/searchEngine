@@ -1,21 +1,21 @@
 public class HDD {
-    private final HDD type;
-    private final HDD memorySize;
-    private  final HDD weight;
+    private final HDDtype type;
+    private final int memorySize;
+    private  final double weight;
 
-    public HDD getType() {
+    public HDDtype getType() {
         return type;
     }
 
-    public HDD getMemorySize() {
+    public int getMemorySize() {
         return memorySize;
     }
 
-    public HDD getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public HDD(HDD type, HDD memorySize, HDD weight) {
+    public HDD(HDDtype type, int memorySize, int weight) {
         this.type = type;
         this.memorySize = memorySize;
         this.weight = weight;
