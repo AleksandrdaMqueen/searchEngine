@@ -1,12 +1,24 @@
 public class RAM {
-    private final RAM type;
-    private final RAM volume;
-    private final RAM weight;
+    private final RAMtype type;
+    private final int volume;
+
+    public RAMtype getType() {
+        return type;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    private final double weight;
     //===================================================================================================================================================================
     //constructor
-    public RAM(RAM type, RAM volume, RAM weight){
+    public RAM(RAMtype type, int volume, int weight){
         this.type = type;
         this.volume = volume;
         this.weight = weight;
+    }
+    public double getWeight(){
+        return weight;
     }
 }
