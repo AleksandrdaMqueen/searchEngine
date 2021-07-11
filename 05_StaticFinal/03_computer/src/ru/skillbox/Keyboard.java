@@ -1,21 +1,21 @@
 public class Keyboard {
-    private  final  Keyboard type;
-    private  final Keyboard isRGB;
-    private  final  Keyboard weight;
+    private  final  KeyboardType type;
+    private  final boolean isRGB;
+    public   final  double weight;
 
-    public Keyboard getType() {
+    public KeyboardType getType() {
         return type;
     }
 
-    public Keyboard getIsRGB() {
+    public boolean getIsRGB() {
         return isRGB;
     }
 
-    public  Keyboard getWeight() {
+    public  double getWeight() {
         return weight;
     }
 
-    public Keyboard(Keyboard type, Keyboard isRGB, Keyboard weight) {
+    public Keyboard(KeyboardType type, boolean isRGB, double weight) {
         this.type = type;
         this.isRGB = isRGB;
         this.weight = weight;
