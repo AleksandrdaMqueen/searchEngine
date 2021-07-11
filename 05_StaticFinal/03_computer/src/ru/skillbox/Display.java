@@ -1,23 +1,23 @@
 public class Display {
-    public Display getDiagonal() {
+    public int getDiagonal() {
         return diagonal;
     }
 
-    public Display getType() {
+    public DisplayType getType() {
         return type;
     }
 
-    public  Display getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    private  final Display diagonal;
-    private final Display type;
-    private final  Display weight;
+    private  final int diagonal;
+    private final DisplayType type;
+    private final  double weight;
 
-    public Display(Display diagonal, Display type, Display weight) {
+    public Display(int diagonal, DisplayType type, int weight) {
         this.diagonal = diagonal;
         this.type = type;
-        this.weight = weight;
+        this.weight =weight;
     }
 }
