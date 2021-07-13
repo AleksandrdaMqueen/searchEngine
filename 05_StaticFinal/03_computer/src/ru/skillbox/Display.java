@@ -20,4 +20,12 @@ public class Display {
         this.type = type;
         this.weight =weight;
     }
+
+    @Override
+    public String toString() {
+        return  '\n' +
+                "    diagonal = " + diagonal + '\n' +
+                "    type = " + type + '\n' +
+                "    weight = " + weight ;
+    }
 }
