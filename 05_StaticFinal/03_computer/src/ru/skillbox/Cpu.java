@@ -1,4 +1,4 @@
-ublic final class Cpu {
+public final class Cpu {
     private final int manufacturer;
     private final double weight;
     private final int frequency;
@@ -28,5 +28,12 @@ ublic final class Cpu {
         return weight;
     }
 
-
+    @Override
+    public String toString() {
+        return '\n' +
+                "    manufacturer = " + manufacturer + '\n' +
+                "    weight = " + weight + '\n' +
+                "    frequency = " + frequency + '\n' +
+                "    numberOfCores = " + numberOfCores ;
+    }
 }
