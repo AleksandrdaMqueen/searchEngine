@@ -11,14 +11,24 @@ public class RAM {
     }
 
     private final double weight;
+
     //===================================================================================================================================================================
     //constructor
-    public RAM(RAMtype type, int volume, int weight){
+    public RAM(RAMtype type, int volume, int weight) {
         this.type = type;
         this.volume = volume;
         this.weight = weight;
     }
-    public double getWeight(){
+
+    public double getWeight() {
         return weight;
+    }
+
+    @Override
+    public String toString() {
+        return "    " + '\n' +
+                "    type = " + type + '\n' +
+                "    volume = " + volume + '\n' +
+                "    weight = " + weight ;
     }
 }
