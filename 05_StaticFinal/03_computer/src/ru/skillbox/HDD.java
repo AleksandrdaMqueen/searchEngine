@@ -20,4 +20,12 @@ public class HDD {
         this.memorySize = memorySize;
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return '\n' +
+                "    type = " + type + '\n' +
+                "    memorySize = " + memorySize + '\n' +
+                "    weight = " + weight ;
+    }
 }
