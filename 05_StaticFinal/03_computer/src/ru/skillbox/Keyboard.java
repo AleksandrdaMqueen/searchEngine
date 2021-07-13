@@ -20,4 +20,12 @@ public class Keyboard {
         this.isRGB = isRGB;
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return '\n' +
+                "    type = " + type + '\n' +
+                "    isRGB = " + isRGB + '\n' +
+                "    weight = " + weight ;
+    }
 }
