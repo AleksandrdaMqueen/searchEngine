@@ -4,8 +4,8 @@ public class Computer {
     private final HDD hdd;
     private final Display display;
     private final Keyboard keyboard;
-    private final String vendor;
-    private final String name;
+    private String vendor;
+    private String name;
     //====================================================================================================================================================================
     //Getter, Setter
 
@@ -69,21 +69,21 @@ public class Computer {
     //================================================================================================================================================================
     //method
 
+
     @Override
     public String toString() {
-        return "Computer" + '\n' +
-                "cpu=" + cpu + '\n' +
-                ", ram=" + ram + '\n' +
-                ", hdd=" + hdd + '\n' +
-                ", display=" + display + '\n' +
-                ", keyboard=" + keyboard + '\n' +
-                ", vendor='" + vendor + '\'' + '\n' +
-                ", name='" + name + '\''
+        return "Computer" +
+                "cpu:  " + cpu + '\n' +
+                " ram:  " + ram + '\n' +
+                " hdd: " + hdd + '\n' +
+                " display:  " + display + '\n' +
+                " keyboard:  " + keyboard + '\n' +
+                " vendor:  " + vendor + '\n' +
+                " name:  " + name
                 ;
     }
 
-
-    public  double countWeight(){
+    public double countWeight() {
         return display.getWeight() + keyboard.getWeight() + hdd.getWeight() + ram.getWeight() + cpu.getWeight();
     }
 
