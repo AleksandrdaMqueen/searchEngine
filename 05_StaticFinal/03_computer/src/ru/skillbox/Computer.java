@@ -1,34 +1,49 @@
 public class Computer {
-    private final Cpu cpu;
-    private final RAM ram;
-    private final HDD hdd;
-    private final Display display;
-    private final Keyboard keyboard;
-    private String vendor;
-    private String name;
+    private  Cpu cpu;
+    private  RAM ram;
+    private  HDD hdd;
+    private  Display display;
+    private  Keyboard keyboard;
+
+
+
+    private final String vendor;
+    private final String name;
     //====================================================================================================================================================================
     //Getter, Setter
 
-
-    public Computer setRam(RAM ram) {
-        return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
+    public void setCpu(Cpu cpu) {
+        this.cpu = cpu;
     }
 
-    public Computer setHdd(HDD hdd) {
-        return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
+    public void setRam(RAM ram) {
+        this.ram = ram;
     }
 
-    public Computer setKeyboard(Keyboard keyboard) {
-        return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
+    public void setHdd(HDD hdd) {
+        this.hdd = hdd;
     }
 
-    public Computer setDisplay(Display display) {
-        return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
+    public void setDisplay(Display display) {
+        this.display = display;
     }
 
-    public Computer setCpu(Cpu cpu) {
-        return new Computer(cpu, ram, hdd, display, keyboard, vendor, name);
+    public void setKeyboard(Keyboard keyboard) {
+        this.keyboard = keyboard;
     }
+    
+    
+    public Computer setVendor(String vendor){
+        return new Computer(cpu , ram, hdd, display ,keyboard, vendor, name);
+    }
+
+    public Computer setName(String name){
+        return new Computer(cpu , ram, hdd, display ,keyboard, vendor, name);
+    }
+
+
+
+
 
     public Cpu getCpu() {
         return cpu;
@@ -89,3 +104,5 @@ public class Computer {
 
 
 }
+
+
