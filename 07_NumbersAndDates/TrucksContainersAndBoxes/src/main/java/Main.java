@@ -3,54 +3,43 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int limitOfBoxesForOneContainer = 27;
+        int limitOfBoxesForOneContainer = 28;
         int container = 1;
         int maxContainersInCargo = 12;
         int cargo = 1;
         int v = 0;
-        int c = 0;
         int i = 0;
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите число ящиков: ");
         int boxes = Integer.parseInt(scanner.nextLine());
         if (boxes == 0) {
-            System.out.println("Недостаточно ящиков для перевозки");
-        } else {
-            while (boxes >= 28) {
-                if (boxes / limitOfBoxesForOneContainer > 0) {
-                    container = boxes / limitOfBoxesForOneContainer;
-                    container++;
-                    break;
-                }
-            }
-            while (container >= 13) {
-                if (container / maxContainersInCargo > 0) {
-                    cargo = boxes / maxContainersInCargo;
+            System.out.println("Необходимо:" + '\n' + "грузовиков - " + 0 + " шт." + '\n' + "контейнеров - " + 0 + " шт.");
+        }else {
+            System.out.println("Грузовик: " + cargo);
+            System.out.println("\tКонтейнер: " + container);
+
+            for (i = 1; i <= boxes; i++) {
+                if (i % (maxContainersInCargo * limitOfBoxesForOneContainer) == 0) {
+                    cargo += 1;
+                    System.out.println("Грузовик: " + cargo);
+                }else if(container > maxContainersInCargo){
                     cargo++;
-                    break;
+                    System.out.println("Грузовик: " + cargo);
                 }
-            }
-            for (i = 1; i <= cargo; i++) {
-                System.out.println("Грузовик: " + i);
-                for (c = 1; c <= container; c++) {
-                    System.out.println("\tКонтейнер: " + c + '\t');
-                    for (v = 1; v <= boxes; v++) {
-                        System.out.println( "\t\tЯщик: " + v);
-
-                    }
-
+                if (i % limitOfBoxesForOneContainer == 0) {
+                    container += 1;
+                    System.out.println("\tКонтейнер: " + container);
                 }
+                System.out.println("\t\tЯщик: " + i);
             }
             System.out.println("Необходимо:" + '\n' + "грузовиков - " + cargo + " шт." + '\n' + "контейнеров - " + container + " шт.");
-        }
+            // TODO: вывести в консоль коробки разложенные по грузовикам и контейнерам
+            // пример вывода при вводе 2
+            // для отступа используйте табуляцию - \t
 
-        // TODO: вывести в консоль коробки разложенные по грузовикам и контейнерам
-        // пример вывода при вводе 2
-        // для отступа используйте табуляцию - \t
+        /*            System.out.println("Необходимо:" + '\n' + "грузовиков - " + cargo + " шт." + '\n' + "контейнеров - " + container + " шт.");
 
-        /*
         Грузовик: 1
             Контейнер: 1
                 Ящик: 1
@@ -60,6 +49,7 @@ public class Main {
         контейнеров - 1 шт.
         */
 
+        }
 
     }
 }
