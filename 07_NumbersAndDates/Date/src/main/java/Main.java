@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Main {
 
@@ -22,7 +23,7 @@ public class Main {
         int count = 0;
 
         while (today.isAfter(birthday) || today.isEqual(birthday)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy - E");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy - E").localizedBy(Locale.US);
 
             text += count + " - " + formatter.format(birthday) + System.lineSeparator();
 
