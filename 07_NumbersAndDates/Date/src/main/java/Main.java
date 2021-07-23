@@ -1,4 +1,5 @@
-import java.time.Duration;
+import net.sf.saxon.expr.Component;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +10,18 @@ public class Main {
     private static LocalDate birthday1 = LocalDate.of(1970, 1, 1);
     private static String text1 = "";
     private static long date = System.currentTimeMillis();
+    private  static  LocalDate now = LocalDate.now();
+    private  static LocalDate period;
+    private static String years = "";
+    private static String months = "";
+    private static String days = "";
+
+
+
+
+    public static void setPeriod(LocalDate period) {
+        Main.period = period;
+    }
 
     public static void main(String[] args) {
         int day = 31;
@@ -42,19 +55,30 @@ public class Main {
 //0 - 31.12.1990 - Mon2233444444444422222222222222222222222222222222222222222222222222222288888888844444444422222222222222222222222222222222222288888888888888888
 //1 - 31.12.1991 - Tue
 
-    public static String getPeriodFromBirthday(LocalDate birthday) {
+
+
+    public static void setBirthday1(LocalDate birthday1) {
+        Main.birthday1 = birthday1;
+    }
+
+
+    public static String getPeriodFromBirthday(LocalDate birthday1) {
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         birthday1 = LocalDate.of(1970,01,1);
-        String text1 = "";
+
         LocalDate now = LocalDate.now();
-        formatter.format(birthday1);
-        formatter.format(now);
-        text1 += birthday1.until(now,ChronoUnit.YEARS);
+        years += birthday1.until(now, ChronoUnit.YEARS) ;
+        months += birthday1.until(now,ChronoUnit.MONTHS) / 12 / 30;
+        days += birthday1.until(now, ChronoUnit.DAYS) /( 24 * 60);
+
+        System.out.println(years + " years, " + months + " months, " + days + "days");
 
         return text1;
     }
+
+
 
 
 }
