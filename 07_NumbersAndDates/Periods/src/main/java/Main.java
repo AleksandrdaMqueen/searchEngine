@@ -1,4 +1,9 @@
 import java.time.LocalDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 public class Main {
   private static LocalDate birthday1 = LocalDate.of(1970, 1, 1);
@@ -16,14 +21,17 @@ public class Main {
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        birthday1 = LocalDate.of(1970,01,1);
+        birthday1 = LocalDate.of(1970, 01, 1);
 
         LocalDate now = LocalDate.now();
-        years += birthday1.until(now, ChronoUnit.YEARS) ;
-        months += birthday1.until(now,ChronoUnit.MONTHS) %12;
-        days += birthday1.until(now, ChronoUnit.DAYS) ;
+        years += birthday1.until(now, ChronoUnit.YEARS);
+        months += birthday1.until(now, ChronoUnit.MONTHS) % 12;
+        days += birthday1.until(now, ChronoUnit.DAYS);
 
         System.out.println(years + " years, " + months + " months, " + days + "days");
 
         return text1;
     }
+
+
+}
