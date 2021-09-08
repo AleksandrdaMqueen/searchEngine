@@ -10,20 +10,18 @@ public class Main {
   public static int calculateSalarySum(String text){
     //TODO: реализуйте метод
 
-    String regex ="[^А-Я][0-9]";
+    String regex ="([0-9])";
 
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(text);
+    Matcher matcher = Pattern.compile("([0-9])+").matcher(text);
+
     while (matcher.find()){
-      int start = matcher.start();
-      int end = matcher.end();
+      int num1 =0;
+      num1 +=  Integer.parseInt(matcher.group(1));
+        System.out.println(num1);
 
-      String num =text.substring(start  ,end );
-      System.out.print(num);
-      int endSpace =num.indexOf(' ',1);
-      String firstNum = num.substring(1,endSpace);
 
     }
+
 
     return -1;
   }
