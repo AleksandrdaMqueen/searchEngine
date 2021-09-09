@@ -9,21 +9,17 @@ public class Main {
 
   public static int calculateSalarySum(String text){
     //TODO: реализуйте метод
-
-    String regex ="([0-9])";
-
-    Matcher matcher = Pattern.compile("([0-9])+").matcher(text);
+    Matcher matcher = Pattern.compile("([0-9]+)").matcher(text);
 
     while (matcher.find()){
       int num1 =0;
-      num1 +=  Integer.parseInt(matcher.group(1));
-        System.out.println(num1);
+       num1 += Integer.parseInt(matcher.group(1) );
+      
+       
 
 
     }
-
-
-    return -1;
+    return 0;
   }
 
 }
