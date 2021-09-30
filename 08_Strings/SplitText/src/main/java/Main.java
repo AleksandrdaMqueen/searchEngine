@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,12 +18,22 @@ public class Main {
                 "modern world than to regret something that no longer exists."));
     }
 
-    public static String[] splitTextIntoWords(String text) {
+    public static String splitTextIntoWords(String text) {
+        String regex = "[,-.]+";
+        Matcher matcher = Pattern.compile(regex).matcher(text);
         String[] split = text.split(" ");
-        for (String splits : split) {
-            System.out.println(splits);
+        StringBuilder text2 = new StringBuilder(" ");
+        String result =" ";
+        while (matcher.find()) {
+            String delete = matcher.group(1);
+
+            for (String splits : split) {
+                result += splits + "\n";
+                result = result - delete;
+            }
 
         }
-        return split;
+
+        return result;
     }
 }
