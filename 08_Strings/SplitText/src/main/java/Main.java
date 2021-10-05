@@ -19,21 +19,19 @@ public class Main {
     }
 
     public static String splitTextIntoWords(String text) {
-        String regex = "[,-.]+";
-        Matcher matcher = Pattern.compile(regex).matcher(text);
-        String[] split = text.split(" ");
-        StringBuilder text2 = new StringBuilder(" ");
-        String result =" ";
-        while (matcher.find()) {
-            String delete = matcher.group(1);
-
-            for (String splits : split) {
-                result += splits + "\n";
-                result = result - delete;
-            }
+        String regex = ("[^A-z0-9]+");
+        String[] split = text.split("\\s");
+        String result = "";
+        for(int i = 0; i < split.length;i++){
+            System.out.println(split[i].replaceAll(regex ,""));
 
         }
 
-        return result;
+
+
+        return split[i].replaceAll(regex ,"");
+
     }
 }
+
+
