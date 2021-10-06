@@ -19,19 +19,20 @@ public class Main {
     }
 
     public static String splitTextIntoWords(String text) {
-        String regex = ("[^A-z0-9]+");
-        String[] split = text.split("\\s");
+        String[] split = text.split("[^A-z’]+");
         String result = "";
         for(int i = 0; i < split.length;i++){
-            System.out.println(split[i].replaceAll(regex ,""));
-
+            result += split[i] + "\n" ;
         }
+        return result.trim();
 
 
 
-        return split[i].replaceAll(regex ,"");
+
 
     }
 }
+
+
 
 
