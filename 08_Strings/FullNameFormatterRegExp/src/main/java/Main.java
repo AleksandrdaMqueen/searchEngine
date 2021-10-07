@@ -11,7 +11,7 @@ public class Main {
                 break;
             }
             String letterList = "[А-я]+";
-            String regex = letterList + "[\\s]" + letterList + "[\\s]" + letterList;
+            String regex =  letterList + "-?" + letterList + "[\\s]" + letterList + "[\\s]" + letterList;
             if (!input.matches(regex)) {
                 System.out.println("Введенная строка не является ФИО");
                 break;
