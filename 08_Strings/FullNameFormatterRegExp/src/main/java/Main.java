@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +11,7 @@ public class Main {
             if (input.equals("0")) {
                 break;
             }
-            String letterList = "[А-я]+";
+            String letterList = "[А-Я][а-я]+";
             String regex =  letterList + "-?" + letterList + "[\\s]" + letterList + "[\\s]" + letterList;
             if (!input.matches(regex)) {
                 System.out.println("Введенная строка не является ФИО");
