@@ -1,5 +1,4 @@
 public class TwoDimensionalArray {
-
     public static char[][] getTwoDimensionalArray(int size) {
         char[][] figure = new char[size][size];
 
@@ -18,16 +17,15 @@ public class TwoDimensionalArray {
                 }
             }
         }
-        for (int j = figure.length; j > 0; j--) {
-            for (int i = figure.length; i > 0; i--) {
-                if (j == i) {
-                    figure[j][i] = 'X';
+        for (int i = figure.length - 1; i > 0; i--) {
+            for (int j = figure.length - 1; j > 0; j--) {
+                if (i == j) {
+                    figure[i][j] = 'X';
                 } else {
-                    figure[j][i] = ' ';
+                    figure[i][j] = ' ';
                 }
             }
         }
-
-        return  figure;
+        return figure;
     }
 }
