@@ -16,13 +16,12 @@ public class TwoDimensionalArray {
                     figure[x][y] = ' ';
                 }
             }
-        }
-        for (int i = figure.length - 1; i > 0; i--) {
-            for (int j = figure.length - 1; j > 0; j--) {
-                if (i == j) {
-                    figure[i][j] = 'X';
-                } else {
-                    figure[i][j] = ' ';
+
+            for (int i = figure.length - 1; i >= 0; i--) {
+                for (int j = 0; j < figure.length; j++) {
+                    if (i == figure.length - j - 1) {
+                        figure[i][j] = 'X';
+                    }
                 }
             }
         }
