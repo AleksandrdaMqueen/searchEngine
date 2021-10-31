@@ -9,13 +9,13 @@ public class TodoList {
 
     public void add(String todo) {
         // TODO: добавьте переданное дело в конец списк
+        whatTodo.add(todo);
+        System.out.println("Добавлено дело" + todo);
     }
 
     public void add(int index, String todo) {
         // TODO: добавьте дело на указаный индекс,
         //  проверьте возможность добавления
-
-
         for (int i = 0; i < whatTodo.size(); i++) {
 
 
@@ -24,6 +24,7 @@ public class TodoList {
                 break;
             } else {
                 whatTodo.add(index, todo);
+                System.out.println("Добавлено дело" + todo);
             }
         }
     }
