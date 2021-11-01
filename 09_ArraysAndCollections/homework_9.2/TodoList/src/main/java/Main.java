@@ -5,26 +5,31 @@ public class Main {
     private static TodoList todoList = new TodoList();
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        String myLine = scan.nextLine();
+        while (true) {
+            Scanner scan = new Scanner(System.in);
+            String myLine = scan.nextLine();
 
 
-        int end = myLine.indexOf(" ", 0);
+            int end = myLine.indexOf(" ", 0);
+            int start = myLine.indexOf(' ', 1);
+            int end1 = myLine.length();
 
-        String typeOfOperation = myLine.substring(0, end);
 
-        int start = myLine.indexOf(' ', 1);
+            String typeOfOperation = myLine.substring(0, end);
+            String todo = myLine.substring(start, end1);
+            String regex = "(ADD|DELETE|EDIT|LIST)\\s(0-9)+?\\s(A-z)+";
 
-        int end1 = myLine.length();
 
-        String todo = myLine.substring(start, end1);
+            if (typeOfOperation.equals(regex)) {
 
-        if (typeOfOperation == "ADD") {
-            todoList.add(todo);
-            todoList.getTodos();
+            } else if (typeOfOperation.equals("DELETE")) {
+                String num = myLine.substring(end, start);
+                int index = Integer.parseInt(num);
+                todoList.delete(index);
+
+            }
+
         }
-
-
     }
 }
 
