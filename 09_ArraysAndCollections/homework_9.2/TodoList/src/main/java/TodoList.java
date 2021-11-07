@@ -1,16 +1,16 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class TodoList {
-    Scanner scan = new Scanner(System.in);
-    String myLine = scan.nextLine();
+
+
     ArrayList<String> whatTodo = new ArrayList<>();
 
 
     public void add(String todo) {
         // TODO: добавьте переданное дело в конец списк
         whatTodo.add(todo);
-        System.out.println("Добавлено дело" + todo);
+        System.out.println("Добавлено дело: " + todo);
     }
 
     public void add(int index, String todo) {
@@ -24,7 +24,7 @@ public class TodoList {
                 break;
             } else {
                 whatTodo.add(index, todo);
-                System.out.println("Добавлено дело" + todo);
+                System.out.println("Добавлено дело: " + todo + "На место: " + index);
             }
         }
     }
@@ -51,7 +51,7 @@ public class TodoList {
 
     public ArrayList<String> getTodos() {
         // TODO: вернуть список дел
-        return new ArrayList<>();
+        return  whatTodo ;
     }
 
 }
