@@ -10,14 +10,32 @@ public class Main {
             Scanner scan = new Scanner(System.in);
             String myLine = scan.nextLine();
 
-
-            String regex = "(ADD|DELETE|EDIT|LIST)\\s?([0-9]+)?\\s?([A-z]+)?";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(myLine);
-            if (!matcher.matches()) {
-                System.out.println("Incorrect expression");
+            Pattern p = Pattern.compile("(ADD|LIST|EDIT|DELETE)\\s*([0-9]*)\\s*(.+)*");
+            Matcher m = p.matcher(myLine);
+            if (!m.matches()) {
+                System.out.println("Некорректный формат команды");
+                continue;
             }
-            System.out.println("Command: " + matcher.group(1) + " Index: " + matcher.group(2) + " Text: " + matcher.group(3));
+            String command = m.group(1);
+            int index = !m.group(2).isBlank() ? Integer.parseInt(m.group(2)) : -1;
+            String text = m.group(3);
+            if(index != -1 && command.equals("ADD")){
+                todoList.add(index,text);
+                continue;
+            }
+            switch (command) {
+                case "ADD":
+                    todoList.add(text);
+                    break;
+                case "DELETE":
+                    todoList.delete(index);
+                    break;
+                case "EDIT":
+                    todoList.edit(text, index);
+                    break;
+                case "LIST":
+                    todoList.list();
+            }
         }
     }
 }
