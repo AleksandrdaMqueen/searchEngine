@@ -18,14 +18,13 @@ public class TodoList {
         //  проверьте возможность добавления
 
 
+        if (index < 0 || index + 1 > whatTodo.size()) {
+            add(todo);
 
-            if (index < 0 ||  index + 1 > whatTodo.size()) {
-                add(todo);
-
-            } else {
-                whatTodo.add(index, todo);
-                System.out.println("Добавлено дело: " + todo + "На место: " + index);
-            }
+        } else {
+            whatTodo.add(index, todo);
+            System.out.println("Добавлено дело: " + todo + "На место: " + index);
+        }
 
     }
 
@@ -33,14 +32,14 @@ public class TodoList {
         // TODO: заменить дело на index переданным todo индекс,
 
 
-            if ( index < 0 || index + 1> whatTodo.size()) {
-                System.out.println("Невозможно добавить дело с таким индесом");
+        if (index < 0 || index + 1 > whatTodo.size()) {
+            System.out.println("Невозможно добавить дело с таким индесом");
 
-            } else {
-                whatTodo.remove(index);
-                whatTodo.add(index, todo);
-                System.out.println("Добавлено дело: " + todo + "На место: " + index);
-            }
+        } else {
+            whatTodo.remove(index);
+            whatTodo.add(index, todo);
+            System.out.println("Добавлено дело: " + todo + " На место: " + index);
+        }
 
         //  проверьте возможность изменения
     }
@@ -48,27 +47,24 @@ public class TodoList {
     public void delete(int index) {
         // TODO: удалить дело находящееся по переданному индексу,
         //  проверьте возможность удаления дела
-            if (index < 0 ||  index + 1 > whatTodo.size()) {
-                System.out.println("Невозможно удалить дело с таким индесом");
-            } else {
-                whatTodo.remove(index);
-            }
-
+        if (index < 0 || index + 1 > whatTodo.size()) {
+            System.out.println("Невозможно удалить дело с таким индесом");
+        } else {
+            whatTodo.remove(index);
+        }
 
 
     }
 
-    public void list(ArrayList<String> whatTodo){
-        for (int i = 0; i < whatTodo.size() - 1; i++) {
-            for (String item : whatTodo) {
-                System.out.println(i +"\\s" + item);
-            }
+    public void list() {
+        for (int i = 0; i < whatTodo.size(); i++) {
+            System.out.println(i + " - " + whatTodo.get(i));
         }
     }
 
     public ArrayList<String> getTodos() {
         // TODO: вернуть список дел
-        return  whatTodo ;
+        return whatTodo;
     }
 
 }
