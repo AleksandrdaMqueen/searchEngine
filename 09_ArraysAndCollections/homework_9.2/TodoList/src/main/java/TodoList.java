@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class TodoList {
 
 
-    ArrayList<String> whatTodo = new ArrayList<>();
+    final ArrayList<String>  whatTodo = new ArrayList<>();
 
 
     public void add(String todo) {
@@ -36,8 +36,7 @@ public class TodoList {
             System.out.println("Невозможно добавить дело с таким индесом");
 
         } else {
-            whatTodo.remove(index);
-            whatTodo.add(index, todo);
+            whatTodo.set(index, todo);
             System.out.println("Добавлено дело: " + todo + " На место: " + index);
         }
 
@@ -62,9 +61,13 @@ public class TodoList {
         }
     }
 
-    public ArrayList<String> getTodos() {
+    public  ArrayList<String> getTodos() {
         // TODO: вернуть список дел
-        return whatTodo;
+        return new ArrayList<>(whatTodo);
     }
 
 }
+
+
+
+
