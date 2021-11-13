@@ -3,7 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    private static TodoList todoList = new TodoList();
+    private static final TodoList todoList = new TodoList();
 
     public static void main(String[] args) {
         while (true) {
@@ -23,15 +23,18 @@ public class Main {
                 todoList.add(index,text);
                 continue;
             }
+
             switch (command) {
                 case "ADD":
                     todoList.add(text);
+
                     break;
                 case "DELETE":
                     todoList.delete(index);
                     break;
                 case "EDIT":
                     todoList.edit(text, index);
+                    System.out.println("Отредактировано  дело: " + text );
                     break;
                 case "LIST":
                     todoList.list();
