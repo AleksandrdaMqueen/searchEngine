@@ -37,7 +37,6 @@ public class TodoList {
 
         } else {
             whatTodo.set(index, todo);
-            System.out.println("Добавлено дело: " + todo + " На место: " + index);
         }
 
         //  проверьте возможность изменения
@@ -67,7 +66,5 @@ public class TodoList {
     }
 
 }
-
-
 
 
