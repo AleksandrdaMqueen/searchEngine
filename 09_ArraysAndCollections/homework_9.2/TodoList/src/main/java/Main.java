@@ -10,7 +10,7 @@ public class Main {
             Scanner scan = new Scanner(System.in);
             String myLine = scan.nextLine();
 
-            Pattern p = Pattern.compile("(ADD|LIST|EDIT|DELETE)\\s*([0-9]*)\\s*(.+)*");
+            final Pattern p = Pattern.compile("(ADD|LIST|EDIT|DELETE)\\s*([0-9]*)\\s*(.+)*");
             Matcher m = p.matcher(myLine);
             if (!m.matches()) {
                 System.out.println("Некорректный формат команды");
@@ -30,11 +30,22 @@ public class Main {
 
                     break;
                 case "DELETE":
-                    todoList.delete(index);
+
+                    String resultOfMethod = todoList.edit(text, index);
+                    if (resultOfMethod != null) {
+                        System.out.println("Дело "+ resultOfMethod + " удаленно " );
+                    } else {
+                        System.out.println("Невозможно удалить дело с таким индесом");
+                    }
+
                     break;
                 case "EDIT":
-                    todoList.edit(text, index);
-                    System.out.println("Отредактировано  дело: " + text );
+                    String result = todoList.edit(text, index);
+                    if (result != null) {
+                        System.out.println("Дело "+ result + " заменено на " + text);
+                    } else {
+                        System.out.println("Невозможно добавить дело с таким индесом");
+                    }
                     break;
                 case "LIST":
                     todoList.list();
