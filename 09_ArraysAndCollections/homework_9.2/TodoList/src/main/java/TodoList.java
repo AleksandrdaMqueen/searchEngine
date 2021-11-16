@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class TodoList {
 
 
-    final ArrayList<String> whatTodo = new ArrayList<>();
+    final private ArrayList<String> whatTodo = new ArrayList<>();
 
 
     public void add(String todo) {
@@ -45,11 +45,6 @@ public class TodoList {
     }
 
 
-    public void list() {
-        for (int i = 0; i < whatTodo.size(); i++) {
-            System.out.println(i + " - " + whatTodo.get(i));
-        }
-    }
 
     public ArrayList<String> getTodos() {
         // TODO: вернуть список дел
