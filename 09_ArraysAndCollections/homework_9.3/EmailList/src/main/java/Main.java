@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -24,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         final TreeSet<String> emailList = new TreeSet<>();
-        String regex = "(LIST|ADD)\\\\s?(.*)";
+        String regex = "(LIST|ADD)\s([A-z]+@[A-z]+\.[a-z]+)";
 
         while (true) {
             String input = scanner.nextLine();
