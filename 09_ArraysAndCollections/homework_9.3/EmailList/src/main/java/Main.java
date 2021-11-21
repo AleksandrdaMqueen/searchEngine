@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -22,33 +23,33 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        final TreeSet<String> emailList = new TreeSet<>();
-        String regex = "(LIST|ADD)\s([A-z]+@[A-z]+\.[a-z]+)";
+        TreeSet<String> emailList = new TreeSet<>();
+        String regex = "(LIST|ADD)\\s([A-z]+@[A-z]+\\.[a-z]+)";
 
         while (true) {
             String input = scanner.nextLine();
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
             if (input.equals("0")) {
                 break;
             } else {
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(input);
-                String emailAdress = matcher.group(2).toLowerCase();
-                String command = matcher.group(1);
                 if (!matcher.matches()) {
                     System.out.println(WRONG_EMAIL_ANSWER);
                     break;
-                }
-                switch (command){
-                    case "ADD":
+                } else {
+
+                    String emailAdress = matcher.group(2).toLowerCase();
+                    String command = matcher.group(1);
+
+
+                    if (command.equals("ADD")) {
                         emailList.add(emailAdress);
-                    case "LIST":
+                    } else if (command.equals("LIST")) {
                         for (String emails : emailList) {
-                                System.out.println(emails);
-                            }
+                            System.out.println(emails);
+                        }
                     }
-
-
-
+                }
             }
         }
     }
