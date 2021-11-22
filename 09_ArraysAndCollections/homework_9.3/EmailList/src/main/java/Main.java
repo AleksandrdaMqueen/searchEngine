@@ -1,4 +1,4 @@
-
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -6,7 +6,8 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static final String WRONG_EMAIL_ANSWER = "Неверный формат email";
-
+    private  static  final String regex = "(LIST|ADD)\\s([A-z]+@[A-z]+\\.[a-z]+)";
+    private static final Pattern pattern = Pattern.compile(regex);
     /* TODO:
         Пример вывода списка Email, после ввода команды LIST в консоль:
         test@test.com
@@ -24,12 +25,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TreeSet<String> emailList = new TreeSet<>();
-        String regex = "(LIST|ADD)\\s([A-z]+@[A-z]+\\.[a-z]+)";
-
+        String input = scanner.nextLine();
+        Matcher matcher = pattern.matcher(input);
         while (true) {
-            String input = scanner.nextLine();
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
             if (input.equals("0")) {
                 break;
             } else {
@@ -43,7 +41,14 @@ public class Main {
 
 
                     if (command.equals("ADD")) {
-                        emailList.add(emailAdress);
+                        if (emailList.contains(emailAdress.toLowerCase(Locale.ROOT))) {
+                            System.out.println("Такой email уже существует");
+                            break;
+                        } else {
+                            emailList.add(emailAdress);
+                            System.out.println("Добавлен email " + emailAdress);
+
+                        }
                     } else if (command.equals("LIST")) {
                         for (String emails : emailList) {
                             System.out.println(emails);
@@ -54,3 +59,4 @@ public class Main {
         }
     }
 }
+
