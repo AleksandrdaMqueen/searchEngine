@@ -11,12 +11,13 @@ public class EmailList {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            System.out.println("Неверный формат email");
+
         } else if (emailList.contains(email.toLowerCase(Locale.ROOT))) {
-            System.out.println("Такой email уже существует");
+
         } else {
             emailList.add(email);
-            System.out.println("Добавлен email " + email);
+
+
         }
     }
 
@@ -27,3 +28,4 @@ public class EmailList {
     }
 
 }
+
