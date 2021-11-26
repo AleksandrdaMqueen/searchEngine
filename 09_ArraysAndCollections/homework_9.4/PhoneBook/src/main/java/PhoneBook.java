@@ -1,4 +1,4 @@
-import java.util.*;
+mport java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,15 +6,18 @@ public class PhoneBook {
     private  final HashMap<String, String> phones = new HashMap<>();
 
     public void addContact(String phone, String name) {
-        String regex4pone = "([0-9]{10,11})";
+        String regex4name = "([А-я]+)";
+        String regex4phone = "([0-9]{10,11})";
 
-        Pattern pattern = Pattern.compile(regex4pone);
-        Matcher matcher = pattern.matcher(phone);
+        Pattern pattern4name = Pattern.compile(regex4name);
+        Matcher matcher4name = pattern4name.matcher(phone);
 
-        if (!matcher.matches()) {
-            System.out.println("Невалидный  номер");
+        Pattern pattern4phone = Pattern.compile(regex4phone);
+        Matcher matcher4phone = pattern4phone.matcher(phone);
+        if (!matcher4phone.matches() || !matcher4name.matches() ) {
+            System.out.println("Невалидный  ввод");
         } else {
-            phones.put(name, phone);
+            phones.put(phone, name);
         }
         // проверьте корректность формата имени и телефона (отдельные методы для проверки)
         // если такой номер уже есть в списке, то перезаписать имя абонента
@@ -34,20 +37,29 @@ public class PhoneBook {
     }
 
     public Set<String> getContactByName(String name) {
-        if (phones.containsKey(name)) {
-            return Collections.singleton(name + " - " + phones.get(name));
+        TreeSet<String> contactByName= new TreeSet<>();
+        if (phones.containsValue(name)) {
+            for(String key : phones.keySet()){
+                if(Objects.equals(phones.get(key), name)){
+                    contactByName.add(key);
+                }
+            }
 
+            return contactByName;
         }
+        return new TreeSet<>();
         // формат одного контакта "Имя - Телефон"
         // если контакт не найден - вернуть пустой TreeSet
-        return new TreeSet<>();
+
     }
 
     public Set<String> getAllContacts() {
         TreeSet<String> phoneList = new  TreeSet<>();
-        if (!phones.isEmpty()) {
-            for (int i = 0; i < phones.size(); i++) {
-                phoneList.add(phones.get(i));
+        if (phones != null) {
+            for (Map.Entry<String, String> entry : phones.entrySet()){
+                String key = entry.getKey(); // получения ключа
+                String value = entry.getValue(); // получения ключа
+                phoneList.add(key + " - "+value);
             }
             return phoneList;
 
