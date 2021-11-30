@@ -22,8 +22,16 @@ public class PhoneBook {
         if (!matcher4phone.matches() || !matcher4name.matches()  ) {
             System.out.println("Невалидный  ввод");
 
-        } else {
-            phones.put(name, phone);
+        } else if(phones.containsValue(phone)){
+            for (Map.Entry<String, String> entry : phones.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                phones.replace(value, name);
+                break;
+
+            }
+        }else {
+            phones.put(phone,name);
         }
         // проверьте корректность формата имени и телефона (отдельные методы для проверки)
         // если такой номер уже есть в списке, то перезаписать имя абонента
@@ -32,9 +40,9 @@ public class PhoneBook {
     public String getContactByPhone(String phone) {
         String name = "";
 
-        if (phones.containsValue(phone)) {
+        if (phones.containsKey(phone)) {
             for (String key : phones.keySet()) {
-                name += key  + " - " + phones.get(key);
+                name += phones.get(key)  + " - " + key;
             }
 
             return name;
@@ -49,9 +57,9 @@ public class PhoneBook {
     public Set<String> getContactByName(String name) {
         TreeSet<String> contactByName = new TreeSet<>();
 
-        if (phones.containsKey(name)) {
+        if (phones.containsValue(name)) {
             for (String key : phones.keySet()) {
-                contactByName.add(key + " - " + phones.get(name));
+                contactByName.add(phones.get(key) + " - " + key);
             }
 
             return contactByName;
@@ -69,7 +77,7 @@ public class PhoneBook {
             for (Map.Entry<String, String> entry : phones.entrySet()) {
                 String key = entry.getKey(); // получения ключа
                 String value = entry.getValue(); // получения ключа
-                phoneList.add(key + " - " + value);
+                phoneList.add(value + " - " + key);
             }
             return phoneList;
 
