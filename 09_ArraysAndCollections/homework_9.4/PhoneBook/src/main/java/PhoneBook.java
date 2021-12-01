@@ -30,7 +30,9 @@ public class PhoneBook {
                 break;
 
             }
-        }else {
+        }
+
+        else {
             phones.put(phone,name);
         }
         // проверьте корректность формата имени и телефона (отдельные методы для проверки)
@@ -41,8 +43,13 @@ public class PhoneBook {
         String name = "";
 
         if (phones.containsKey(phone)) {
-            for (String key : phones.keySet()) {
-                name += phones.get(key)  + " - " + key;
+            for (Map.Entry<String, String> entry : phones.entrySet()) {
+                String key = entry.getKey(); // получения ключа
+                String value = entry.getValue(); // получения ключа
+
+                if(key.equals(phone)){
+                    name += value + " - " + key;
+                }
             }
 
             return name;
@@ -57,10 +64,15 @@ public class PhoneBook {
     public Set<String> getContactByName(String name) {
         TreeSet<String> contactByName = new TreeSet<>();
 
-        if (phones.containsValue(name)) {
-            for (String key : phones.keySet()) {
-                contactByName.add(phones.get(key) + " - " + key);
-            }
+         if (phones.containsValue(name)) {
+             for (Map.Entry<String, String> entry : phones.entrySet()) {
+                 String key = entry.getKey(); // получения ключа
+                 String value = entry.getValue(); // получения ключа
+
+                if(value.equals(name)){
+                    contactByName.add(value + " - " + key);
+                }
+             }
 
             return contactByName;
         }else {
@@ -78,10 +90,14 @@ public class PhoneBook {
                 String key = entry.getKey(); // получения ключа
                 String value = entry.getValue(); // получения ключа
                 phoneList.add(value + " - " + key);
+
+
             }
             return phoneList;
 
         }
+
+
         // формат одного контакта "Имя - Телефон"
         // если контактов нет в телефонной книге - вернуть пустой TreeSet
         return new TreeSet<>();
