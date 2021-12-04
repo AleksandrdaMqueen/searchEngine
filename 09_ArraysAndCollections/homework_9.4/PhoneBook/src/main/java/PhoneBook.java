@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,22 +19,20 @@ public class PhoneBook {
         Matcher matcher4phone = pattern4phone.matcher(phone);
 
 
-
-        if (!matcher4phone.matches() || !matcher4name.matches()  ) {
+        if (!matcher4phone.matches() || !matcher4name.matches()) {
             System.out.println("Невалидный  ввод");
 
-        } else if(phones.containsValue(phone)){
+        } else if (phones.containsValue(phone)) {
             for (Map.Entry<String, String> entry : phones.entrySet()) {
-                String key = entry.getKey();
                 String value = entry.getValue();
                 phones.replace(value, name);
                 break;
 
             }
-        }
 
-        else {
-            phones.put(phone,name);
+
+        } else {
+            phones.put(phone, name);
         }
         // проверьте корректность формата имени и телефона (отдельные методы для проверки)
         // если такой номер уже есть в списке, то перезаписать имя абонента
@@ -47,13 +46,13 @@ public class PhoneBook {
                 String key = entry.getKey(); // получения ключа
                 String value = entry.getValue(); // получения ключа
 
-                if(key.equals(phone)){
+                if (key.equals(phone)) {
                     name += value + " - " + key;
                 }
             }
 
             return name;
-        }else {
+        } else {
             return "";
         }
         // формат одного контакта "Имя - Телефон"
@@ -64,18 +63,18 @@ public class PhoneBook {
     public Set<String> getContactByName(String name) {
         TreeSet<String> contactByName = new TreeSet<>();
 
-         if (phones.containsValue(name)) {
-             for (Map.Entry<String, String> entry : phones.entrySet()) {
-                 String key = entry.getKey(); // получения ключа
-                 String value = entry.getValue(); // получения ключа
+        if (phones.containsValue(name)) {
+            for (Map.Entry<String, String> entry : phones.entrySet()) {
+                String key = entry.getKey(); // получения ключа
+                String value = entry.getValue(); // получения ключа
 
-                if(value.equals(name)){
+                if (value.equals(name)) {
                     contactByName.add(value + " - " + key);
                 }
-             }
+            }
 
             return contactByName;
-        }else {
+        } else {
             return new TreeSet<>();
         }
         // формат одного контакта "Имя - Телефон"
@@ -84,32 +83,31 @@ public class PhoneBook {
     }
 
     public Set<String> getAllContacts() {
-        TreeSet<String> phoneList = new TreeSet<>();
-        if (phones != null) {
-            for (Map.Entry<String, String> entry : phones.entrySet()) {
-                String key = entry.getKey(); // получения ключа
-                String value = entry.getValue(); // получения ключа
-                phoneList.add(value + " - " + key);
+        HashSet<String> phoneList = new HashSet<>();
 
 
+        if (!phones.isEmpty()) {
+            for (String value : phones.values()) {
+                for (Map.Entry<String, String> entry : phones.entrySet()) {
+                    if (value.equals(entry.getValue())) {
+                        String key = entry.getKey();
+                        phoneList.add(value + " - " + key);
+                        phoneList.add(key);
+
+                    }
+
+
+                }
             }
             return phoneList;
-
         }
-
-
-        // формат одного контакта "Имя - Телефон"
-        // если контактов нет в телефонной книге - вернуть пустой TreeSet
         return new TreeSet<>();
+
 
     }
 
-    // для обхода Map используйте получение пары ключ->значение Map.Entry<String,String>
-    // это поможет вам найти все ключи (key) по значению (value)
-    /*
-        for (Map.Entry<String, String> entry : map.entrySet()){
-            String key = entry.getKey(); // получения ключа
-            String value = entry.getValue(); // получения ключа
-        }
-    */
+
+    // формат одного контакта "Имя - Телефон"
+    // если контактов нет в телефонной книге - вернуть пустой TreeSet
+
 }
