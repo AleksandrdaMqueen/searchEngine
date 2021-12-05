@@ -39,7 +39,7 @@ public class PhoneBook {
     }
 
     public String getContactByPhone(String phone) {
-        String name = "";
+        StringBuilder name = new StringBuilder();
 
         if (phones.containsKey(phone)) {
             for (Map.Entry<String, String> entry : phones.entrySet()) {
@@ -47,11 +47,11 @@ public class PhoneBook {
                 String value = entry.getValue(); // получения ключа
 
                 if (key.equals(phone)) {
-                    name += value + " - " + key;
+                    name.append(value).append(" - ").append(key);
                 }
             }
 
-            return name;
+            return name.toString();
         } else {
             return "";
         }
@@ -69,7 +69,10 @@ public class PhoneBook {
                 String value = entry.getValue(); // получения ключа
 
                 if (value.equals(name)) {
-                    contactByName.add(value + " - " + key);
+                    if(contactByName.isEmpty()){
+                        contactByName.add(value + " - " + key);
+                    }
+
                 }
             }
 
@@ -88,16 +91,14 @@ public class PhoneBook {
 
         if (!phones.isEmpty()) {
             for (String value : phones.values()) {
+                StringBuilder result = new StringBuilder(value + " - ");
                 for (Map.Entry<String, String> entry : phones.entrySet()) {
                     if (value.equals(entry.getValue())) {
                         String key = entry.getKey();
-                        phoneList.add(value + " - " + key);
-                        phoneList.add(key);
-
+                        result.append(key).append(", ");
                     }
-
-
                 }
+                phoneList.add(result.substring(0, result.length() - 2));
             }
             return phoneList;
         }
