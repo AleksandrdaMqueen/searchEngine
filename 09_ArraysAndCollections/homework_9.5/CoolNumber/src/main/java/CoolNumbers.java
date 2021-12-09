@@ -1,41 +1,23 @@
+
 import java.util.*;
 
 public class CoolNumbers {
 
-    private static  String generateFirstLetter(){
-        String letters = "АВЕКМНОРСТУХ";
-        String firstLetter = String.valueOf(letters.charAt((int) (Math.random() * (letters.length() - 1)) + 1));
-        return firstLetter;
-    }
-
-    private static String generateFirstThreeNumbers(){
-        String firstNum =  String.valueOf((int) (Math.random() * 8) + 1);
-        String secNum =  String.valueOf((int) (Math.random() * 8) + 1);
-        String thirdNum =  String.valueOf((int) (Math.random() * 8) + 1);
-        String firstThreeNumbers = firstNum + secNum + thirdNum;
-
-        return firstThreeNumbers;
-    }
-
-    private static String generateTwoLetters(){
-        String letters = "АВЕКМНОРСТУХ";
-        String  firstLetter = String.valueOf(letters.charAt((int) (Math.random()  * letters.length() - 1) + 1));
-        String secLetter = String.valueOf(letters.charAt((int) (Math.random()  * letters.length() - 1) + 1));
-        String twoLetters = firstLetter + secLetter;
-        return twoLetters;
-    }
-
-    private static  String generateRegion(){
-        String region = String.valueOf((int)(Math.random() * 198) + 1);
-        return  region;
-    }
 
 
 
     public static List<String> generateCoolNumbers() {
         ArrayList<String> numbers = new ArrayList<>();
+        String[] letters = {"А","В","Е","К","М","Н","О","Р","С","Т","У","Х"};
+        String[] num = {"111", "222", "333", "444", "555","666","777","888","999"};
         while(numbers.size() <= 2000000) {
-            numbers.add(generateFirstLetter() + generateFirstThreeNumbers() + generateTwoLetters() + generateRegion());
+            for (int i = 0; i < num.length; i++) {
+                for (int j = 0; j < letters.length; j++) {
+                    for (int k = 0; k < 199; k++) {
+                        numbers.add(letters[j] + num[i] +letters[j] + letters[j]+letters[j] + k);
+                    }
+                }
+            } 
         }
 
         for(String nums : numbers){
