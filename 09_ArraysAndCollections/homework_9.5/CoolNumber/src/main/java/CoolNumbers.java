@@ -6,23 +6,25 @@ public class CoolNumbers {
 
 
 
+
     public static List<String> generateCoolNumbers() {
         ArrayList<String> numbers = new ArrayList<>();
         String[] letters = {"А","В","Е","К","М","Н","О","Р","С","Т","У","Х"};
         String[] num = {"111", "222", "333", "444", "555","666","777","888","999"};
-        while(numbers.size() <= 2000000) {
-            for (int i = 0; i < num.length; i++) {
-                for (int j = 0; j < letters.length; j++) {
-                    for (int k = 0; k < 199; k++) {
-                        numbers.add(letters[j] + num[i] +letters[j] + letters[j]+letters[j] + k);
+        for (int i = 0; i < num.length; i++) {
+
+            for (int j = 0; j < letters.length; j++) {
+                for (int j1 = 0; j1 < letters.length; j1++) {
+                    for (int j2 = 0; j2 < letters.length; j2++) {
+                        for (int k = 0; k < 199; k++) {
+                            numbers.add(letters[j] + num[i] + letters[j1] + letters[j2] + k);
+                        }
                     }
                 }
-            } 
+            }
         }
 
-        for(String nums : numbers){
-            System.out.println(nums);
-        }
+
 
         return numbers;
     }
