@@ -16,7 +16,7 @@ public class Main {
         HashSet<String> numbers1 = new HashSet<>(numbers);
         TreeSet<String> numbers2  = new TreeSet<>(numbers);
         List<String> numbers3 = new ArrayList<>(numbers);
-
+        Collections.sort(numbers3);
 
         Collections.sort(numbers3);
         while (true) {
