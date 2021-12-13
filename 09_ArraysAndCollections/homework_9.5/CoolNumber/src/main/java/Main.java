@@ -11,56 +11,54 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        ArrayList<String> numbers = new ArrayList<>();
-        HashSet<String> numbers1 = new HashSet<>();
-        TreeSet<String> numbers2  = new TreeSet<>();
+
+        List<String> numbers = CoolNumbers.generateCoolNumbers();
+        HashSet<String> numbers1 = new HashSet<>(numbers);
+        TreeSet<String> numbers2  = new TreeSet<>(numbers);
+        List<String> numbers3 = new ArrayList<>(numbers);
+
+
+        Collections.sort(numbers3);
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String num = scanner.nextLine();
-            System.out.println("Введите искомый номер:");
-
-            numbers.generateCoolNumbers();
-
-
-            long startTime2 = System.nanoTime();
+            long startTime = System.nanoTime();
             boolean isContains = CoolNumbers.bruteForceSearchInList(numbers, num);
-            long endTime2 = System.nanoTime();
-            if(isContains){
-                System.out.println("Поиск номера перебором заял: " + (endTime2 - startTime2) + "ns");
-            }else{
+            long endTime = System.nanoTime();
+            if(isContains) {
+                System.out.println("Номер найден! Поиск занял: " + (endTime - startTime) + "ns");
+            }else {
                 System.out.println("Номер не найден");
             }
 
 
+            long startTime2 = System.nanoTime();
+            boolean isContains2 = CoolNumbers.searchInHashSet(numbers1, num);
+            long endTime2 = System.nanoTime();
+            if(isContains2) {
+                System.out.println("Номер найден! Поиск занял: " + (endTime2 - startTime2) + "ns");
+            }else {
+                System.out.println("Номер не найден");
+            }
+
 
             long startTime3 = System.nanoTime();
-            boolean isContains2 = CoolNumbers.binarySearchInList(numbers, num);
+            boolean isContains3 = CoolNumbers.binarySearchInList(numbers3, num);
             long endTime3 = System.nanoTime();
-            if(isContains2){
-                System.out.println("Поиск номера перебором заял: " + (endTime3 - startTime3) + "ns");
-            }else{
+            if(isContains3) {
+                System.out.println("Номер найден! Поиск занял: " + (endTime3 - startTime3) + "ns");
+            }else {
                 System.out.println("Номер не найден");
             }
 
             long startTime4 = System.nanoTime();
-            boolean isContains3 = CoolNumbers.searchInHashSet(numbers1, num);
-            long endTime4 = System.nanoTime();
-            if(isContains3){
-                System.out.println("Поиск номера перебором заял: " + (endTime4 - startTime4) + "ns");
-            }else{
-                System.out.println("Номер не найден");
-            }
-
-            long startTime5 = System.nanoTime();
-
-            long endTime5 = System.nanoTime();
             boolean isContains4 = CoolNumbers.searchInTreeSet(numbers2, num);
-            if(isContains4){
-                System.out.println("Поиск номера перебором заял: " + (endTime5 - startTime5) + "ns");
-            }else{
+            long endTime4 = System.nanoTime();
+            if(isContains4) {
+                System.out.println("Номер найден! Поиск занял: " + (endTime4 - startTime4) + "ns");
+            }else {
                 System.out.println("Номер не найден");
             }
-
 
         }
 
