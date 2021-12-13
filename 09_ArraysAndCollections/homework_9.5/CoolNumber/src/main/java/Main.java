@@ -18,7 +18,7 @@ public class Main {
         List<String> numbers3 = new ArrayList<>(numbers);
         Collections.sort(numbers3);
 
-        Collections.sort(numbers3);
+      
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String num = scanner.nextLine();
