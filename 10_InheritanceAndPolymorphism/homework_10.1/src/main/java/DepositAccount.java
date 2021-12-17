@@ -1,20 +1,21 @@
 import java.time.LocalDate;
 
 public class DepositAccount extends BankAccount {
+    private LocalDate lastIncome;
+    @Override
+    public void put(double amountToPut){
+        super.put(amountToPut);
+        lastIncome = LocalDate.now();
 
-    public static boolean isMonthAgo(){
 
-         LocalDate lastInCome = LocalDate.now();
-  
-        return false;
     }
 
     @Override
     public void take(double amountToTake) {
-        if(isMonthAgo() && amountToTake < totalMoney) {
+        if(lastIncome.plusMonths(1).isBefore(LocalDate.now()) ){
             super.take(amountToTake);
         }else{
-            System.out.println("Еще не прошел месяц");
+            System.out.println("С последнего снятия  денег еще не проше месяц");
         }
     }
 }
