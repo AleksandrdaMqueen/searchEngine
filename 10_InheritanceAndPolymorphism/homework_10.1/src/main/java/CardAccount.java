@@ -4,5 +4,5 @@ public class CardAccount extends BankAccount {
         super.take(amountToTake + (amountToTake / 100 * 1));
 
     }
-    
+
 }
