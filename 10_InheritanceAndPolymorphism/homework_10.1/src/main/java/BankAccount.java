@@ -1,7 +1,7 @@
-import java.time.LocalDate;
+
 
 public class BankAccount {
-    public double totalMoney = 0;
+    protected double totalMoney = 0;
 
 
     public void put(double amountToPut) {
