@@ -1,16 +1,25 @@
 public abstract class Client {
-
+    protected double totalMoney = 0;
     public double getAmount() {
-        //TODO: реализуйте метод и удалите todo
-        return 0;
+        return totalMoney;
     }
 
     public void put(double amountToPut) {
-        //TODO: реализуйте метод и удалите todo
+        if (amountToPut < 0){
+            System.out.println("Недьзя положить отрицательную сумму");
+        }
+        else {
+            totalMoney += amountToPut;
+        }
+
     }
 
     public void take(double amountToTake) {
-        //TODO: реализуйте метод и удалите todo
+        if(totalMoney > amountToTake || amountToTake < 0){
+            totalMoney -= amountToTake;
+        }else{
+            System.out.println("Недостаточно денег на счету");
+        }
     }
 
 }
