@@ -10,10 +10,14 @@ public class Main {
         System.out.println(staff);
     }
 
+
+
     public static void sortBySalaryAndAlphabet(List<Employee> staff) {
         staff.sort((o1, o2) -> {
-            o1.getName().compareTo(o2.getName());
-            return o1.getSalary().compareTo(o2.getSalary());
+            if(o1.getName().compareTo(o2.getName()) == 0){
+                o1.getSalary().compareTo(o2.getSalary());
+            }
+            return ?
         });
 
 
