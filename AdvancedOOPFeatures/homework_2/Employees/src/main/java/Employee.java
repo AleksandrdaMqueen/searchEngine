@@ -1,6 +1,8 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ public class Employee {
   private String name;
   private Integer salary;
   private Date workStart;
+
 
   public Employee(String name, Integer salary, Date workStart) {
     this.name = name;
@@ -39,6 +42,12 @@ public class Employee {
       ex.printStackTrace();
     }
     return staff;
+  }
+
+  public int getYear() {
+    LocalDate dateToInstant = workStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    int year = dateToInstant.getYear();
+    return year;
   }
 
   public String getName() {
@@ -90,3 +99,4 @@ public class Employee {
   }
 
 }
+
