@@ -17,8 +17,10 @@ public class RouteCalculator {
 
     public List<Station> getShortestRoute(Station from, Station to) {
         List<Station> route = getRouteOnTheLine(from, to);
-        if (route != null) {
-            return route;
+
+        if (route != null ) {
+
+            return getRouteOnTheLine(from, to);
         }
 
         route = getRouteWithOneConnection(from, to);
@@ -33,16 +35,21 @@ public class RouteCalculator {
     public static double calculateDuration(List<Station> route) {
         double duration = 0;
         Station previousStation = null;
+        double firstStationTime = 2.5;
+
         for (int i = 0; i < route.size(); i++) {
             Station station = route.get(i);
             if (i > 0) {
                 duration += previousStation.getLine().equals(station.getLine()) ?
                         INTER_STATION_DURATION : INTER_CONNECTION_DURATION;
             }
+
             previousStation = station;
         }
+        duration += firstStationTime;
         return duration;
     }
+
 
     private List<Station> getRouteOnTheLine(Station from, Station to) {
         if (!from.getLine().equals(to.getLine())) {
@@ -99,6 +106,7 @@ public class RouteCalculator {
         }
         return route;
     }
+
 
     private boolean isConnected(Station station1, Station station2) {
         Set<Station> connected = stationIndex.getConnectedStations(station1);
