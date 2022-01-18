@@ -3,28 +3,31 @@ import core.Line;
 import core.Station;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class TestRouteCalculator extends TestCase {
 
     List<Station> route;
-    RouteCalculator routeCalculator = new RouteCalculator(new StationIndex());
+    StationIndex stationIndex = new StationIndex();
+
     @Override
     protected void setUp() throws Exception {
-        route = new ArrayList<>();
+        StationIndex stationIndex = new StationIndex();
+        Line line = new Line(1,"Первая");
+        Station station = new Station("Новочеркасская",line);
+        Station station2 = new Station("Маяковская",line);
+        Station station3 = new Station("Зенит",line);
+        Line line1 = new Line(1,"вторая");
+        stationIndex.addLine(line1);
+        stationIndex.addLine(line);
+        stationIndex.addStation(station);
+        stationIndex.addStation(station2);
+        stationIndex.addStation(station3);
+        
 
-        Line line = new Line(1, "Первая");
-        Line line1 = new Line(2, "Вторая");
-
-
-        Station station = new Station("Новочеркасская", line);
-        Station station2 = new Station("Зенит", line);
-        Station station3 = new Station("Маяковская", line1);
-        route.add(station);
-        route.add(station2);
-        route.add(station3);
     }
+    RouteCalculator routeCalculator = new RouteCalculator(stationIndex);
 
     public void testCalculateDuration() {
         double expected = 8.5;
