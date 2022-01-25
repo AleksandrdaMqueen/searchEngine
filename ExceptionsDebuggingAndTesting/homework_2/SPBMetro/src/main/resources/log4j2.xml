@@ -14,7 +14,7 @@
 
         <File name="search" fileName="C:\Users\abake\Desktop\skillbox\java_basics-master (3)\logs\search.log">
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
         </File>
 
         <File name="exceptions" fileName="C:\Users\abake\Desktop\skillbox\java_basics-master (3)\logs\exceptions.log">
