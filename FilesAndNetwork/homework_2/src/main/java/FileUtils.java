@@ -1,5 +1,8 @@
 import java.io.File;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 
 public class FileUtils {
@@ -9,13 +12,19 @@ public class FileUtils {
 
             File filesFromSrcDirectory = new File(sourceDirectory);
             File[] files = filesFromSrcDirectory.listFiles();
-            PrintWriter printWriter = new PrintWriter(destinationDirectory);
+            Path dest = Paths.get(destinationDirectory);
 
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isFile()){
-                    printWriter.write(files[i].getName());
+            for (File file : files){
+                Files.copy(file.toPath(),dest.resolve(file.getName()) , StandardCopyOption.REPLACE_EXISTING);
+                if (file.isDirectory()){
+                    File folder = new File(file.getAbsolutePath());
+                    File[] files1 = folder.listFiles();
+                    for (File file1 : files1){
+                        Files.copy(file1.toPath(),dest.resolve(file1.getName()) , StandardCopyOption.REPLACE_EXISTING);
+                    }
                 }
             }
+
         }catch (Exception exception){
             exception.printStackTrace();
         }
