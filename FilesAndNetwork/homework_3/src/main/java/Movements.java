@@ -5,59 +5,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Movements {
 
-    private  static String pathMovementsCsv;
+public class Movements {
+    private static String pathMovementsCsv;
 
     public Movements(String pathMovementsCsv) {
-        this.pathMovementsCsv = pathMovementsCsv;
+        Movements.pathMovementsCsv = pathMovementsCsv;
     }
 
     public double getExpenseSum() {
 
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
-        for (String line :list){
+        for (String line : list) {
+
+            list.stream().skip(1);
             String[] fragments = line.split(",");
-            if (fragments.length != 8){
+            if (fragments.length != 8) {
                 System.out.println("Неверный формат: " + line);
 
-            }
-            else {
+            } else {
                 list.add(line);
                 sum += Double.parseDouble(fragments[7]);
                 return sum;
             }
         }
 
-        return sum;
+        return 0.0;
 
     }
 
 
-    public static double getIncomeSum() {
+    public double getIncomeSum() {
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
-        for (String line :list){
+
+        for (String line : list) {
             String[] fragments = line.split(",");
-            if (fragments.length != 8){
+
+            if (fragments.length != 8) {
                 System.out.println("Неверный формат: " + line);
 
-            }
-            else {
+            } else {
                 list.add(line);
-                sum += Double.parseDouble(fragments[6]);
+                sum = +Double.parseDouble(fragments[6]);
                 return sum;
             }
         }
-
-        return sum;
+        return 0.0;
     }
 
-    private static List<String> getFilledList(String cvsToGet){
+    private List<String> getFilledList(String cvsToGet) {
         List<String> list = new ArrayList<>();
         try {
-            list =  Files.readAllLines(Paths.get(cvsToGet));
+            list = Files.readAllLines(Paths.get(cvsToGet));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,3 +71,4 @@ public class Movements {
 
 
 }
+
