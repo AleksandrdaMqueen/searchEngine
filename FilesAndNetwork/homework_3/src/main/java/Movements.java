@@ -14,24 +14,23 @@ public class Movements {
     }
 
     public double getExpenseSum() {
-
+        
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
         for (String line : list) {
 
-            list.stream().skip(1);
             String[] fragments = line.split(",");
             if (fragments.length != 8) {
                 System.out.println("Неверный формат: " + line);
 
             } else {
-                list.add(line);
-                sum += Double.parseDouble(fragments[7]);
-                return sum;
+
+                sum += Double.parseDouble(fragments[6]);
+
             }
         }
 
-        return 0.0;
+        return sum;
 
     }
 
@@ -47,12 +46,12 @@ public class Movements {
                 System.out.println("Неверный формат: " + line);
 
             } else {
-                list.add(line);
-                sum = +Double.parseDouble(fragments[6]);
-                return sum;
+
+                sum = +Double.parseDouble(fragments[7]);
+
             }
         }
-        return 0.0;
+        return sum;
     }
 
     private List<String> getFilledList(String cvsToGet) {
