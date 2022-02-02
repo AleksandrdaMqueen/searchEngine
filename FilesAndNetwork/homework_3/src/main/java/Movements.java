@@ -3,8 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Movements {
@@ -19,7 +17,7 @@ public class Movements {
     public double getExpenseSum() {
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
-
+        list.remove(0);
         for (String line : list) {
             String[] fragments = line.split(",");
 
@@ -29,6 +27,7 @@ public class Movements {
             } else if (fragments.length == 9) {
                 sum = +Double.parseDouble(fragments[7].replaceAll("\"", "") + "." + fragments[8].replaceAll("\"", ""));
             }
+
         }
         return sum;
 
@@ -38,6 +37,7 @@ public class Movements {
     public double getIncomeSum() {
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
+        list.remove(0);
 
         for (String line : list) {
             String[] fragments = line.split(",");
@@ -71,3 +71,4 @@ public class Movements {
 
 
 }
+
