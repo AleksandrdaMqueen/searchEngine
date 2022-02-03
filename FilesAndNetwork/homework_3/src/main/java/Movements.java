@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Movements {
@@ -17,15 +18,21 @@ public class Movements {
     public double getExpenseSum() {
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
-        list.remove(0);
+
         for (String line : list) {
+            line = line.replace("\"", "");
             String[] fragments = line.split(",");
-
             if (fragments.length == 8) {
+                sum += Double.parseDouble(fragments[7]);
+                System.out.println(fragments[7]);
+            } else if (fragments.length == 9 ) {
+                fragments[7] = fragments[7] + "." + fragments[8];
 
-                sum = +Double.parseDouble(fragments[7]);
-            } else if (fragments.length == 9) {
-                sum = +Double.parseDouble(fragments[7].replaceAll("\"", "") + "." + fragments[8].replaceAll("\"", ""));
+                fragments[8] = "0";
+                sum += Double.parseDouble(fragments[7]);
+
+            } else {
+                System.out.println("Wrong line: " + line);
             }
 
         }
@@ -37,19 +44,23 @@ public class Movements {
     public double getIncomeSum() {
         List<String> list = getFilledList(pathMovementsCsv);
         double sum = 0.0;
-        list.remove(0);
+
 
         for (String line : list) {
+            line = line.replace("\"", "");
             String[] fragments = line.split(",");
-
             if (fragments.length == 8) {
-
-                sum += Double.parseDouble(fragments[7]);
+                sum += Double.parseDouble(fragments[6]);
+                System.out.println(fragments[6]);
             } else if (fragments.length == 9) {
-                sum += Double.parseDouble(fragments[6].replaceAll("\"", "") + "." +fragments[7].replaceAll("\"", ""));
-            } else {
-                System.out.println("Неверный формат: " + line);
+                fragments[6] = fragments[6] + "." + fragments[7];
 
+                fragments[7] = "0";
+                sum += Double.parseDouble(fragments[6]);
+                System.out.println(fragments[6]);
+
+            } else {
+                System.out.println("Wrong line: " + line);
             }
         }
         return sum;
@@ -59,6 +70,7 @@ public class Movements {
         List<String> list = new ArrayList<>();
         try {
             list = Files.readAllLines(Paths.get(cvsToGet));
+            list.remove(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
