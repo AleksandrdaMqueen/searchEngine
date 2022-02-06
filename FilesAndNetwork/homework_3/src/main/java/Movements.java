@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,52 +16,52 @@ public class Movements {
 
     public double getExpenseSum() {
         List<String> list = getFilledList(pathMovementsCsv);
-        BigDecimal sum = new BigDecimal("0.0");
-        BigDecimal res = new BigDecimal("0.0");
+        double res =0.0;
 
         for (String line : list) {
-            line = line.replace("\"", "");
-            String[] fragments = line.split(",");
+
+            String[] fragments = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             if (fragments.length == 9) {
 
-                fragments[7] = fragments[7] + "." + fragments[8];
-                 res = sum.add(BigDecimal.valueOf(Double.parseDouble(fragments[7])));
+
+                res += Double.parseDouble(fragments[7].replaceAll("\"", " ").replaceAll(",","."));
 
             } else if (fragments.length == 8) {
-                 res = sum.add(BigDecimal.valueOf(Double.parseDouble(fragments[7])));
+
+                res += Double.parseDouble(fragments[7].replaceAll("\"","").replaceAll(",","."));
             } else {
                 System.out.println("Wrong line: " + line);
             }
 
         }
 
-        return res.doubleValue();
+        return res;
 
     }
 
 
     public double getIncomeSum() {
         List<String> list = getFilledList(pathMovementsCsv);
-        BigDecimal sum = new BigDecimal("0.0");
-        BigDecimal res = new BigDecimal("0.0");
+        double res =0.0;
 
         for (String line : list) {
-            line = line.replace("\"", "");
-            String[] fragments = line.split(",");
+
+            String[] fragments = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             if (fragments.length == 9) {
 
-                fragments[6] = fragments[6] + "." + fragments[7];
-                res = sum.add(BigDecimal.valueOf(Double.parseDouble(fragments[6])));
+
+                res += Double.parseDouble(fragments[6].replaceAll("\"", " ").replaceAll(",","."));
 
             } else if (fragments.length == 8) {
-                res = sum.add(BigDecimal.valueOf(Double.parseDouble(fragments[6])));
+
+                res += Double.parseDouble(fragments[6].replaceAll("\"","").replaceAll(",","."));
             } else {
                 System.out.println("Wrong line: " + line);
             }
 
         }
 
-        return res.doubleValue();
+        return res;
     }
 
     private List<String> getFilledList(String cvsToGet) {
@@ -80,5 +79,6 @@ public class Movements {
 
 
 }
+
 
 
