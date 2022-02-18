@@ -10,48 +10,22 @@ public class Main {
         String user = "root";
         String pass = "polar12Bear";
         try {
-            int months = 0;
-            int count = 0;
-            ArrayList<String> arrayOfNames = new ArrayList<>();
+
+
 
             Connection connection = DriverManager.getConnection(url, user, pass);
 
             Statement statement = connection.createStatement();
-            Statement statement1 = connection.createStatement();
-            Statement statement2 = connection.createStatement();
-            Statement statement3 = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT subscription_date as date , course_name as name FROM purchaselist WHERE YEAR(subscription_date) = 2018 ORDER BY subscription_date");
 
-            ResultSet getLastNum = statement1.executeQuery("SELECT MONTH(subscription_date) as date FROM purchaselist WHERE YEAR(subscription_date) = 2018 ORDER BY subscription_date");
-            ResultSet name = statement2.executeQuery("SELECT  name  as name FROM courses");
-            while (name.next()) {
-                arrayOfNames.add(name.getString("name"));
-            }
-            while (getLastNum.next()) {
-                months = getLastNum.getInt("date");
+            ResultSet resultSet = statement.executeQuery("SELECT course_name as course_name,\n" +
+                    "count(subscription_date) / (max(month(subscription_date)) - (min(month(subscription_date)))+1)  as avg_price \n" +
+                    "from purchaselist  where year(subscription_date) = 2018 group by course_name");
 
+            System.out.println("Средниие продажи по каждому курсу:");
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("course_name") + " "+resultSet.getString("avg_price"));
             }
 
-
-            for (int i = 0; i <= arrayOfNames.size() -1 ; i++) {
-                String names = arrayOfNames.get(i);
-                ResultSet resultSet1 = statement3.executeQuery("SELECT subscription_date as date from purchaselist WHERE name = " + names);
-                while (resultSet1.next()){
-                    count++;
-
-                }
-                int res = count/ months;
-                System.out.println("Средние продажи в месяц курса " + names + "равна " + res);
-
-            }
-
-
-            statement.close();
-            resultSet.close();
-            connection.close();
-            getLastNum.close();
-            statement1.close();
-            statement2.close();
 
 
         } catch (Exception exception) {
