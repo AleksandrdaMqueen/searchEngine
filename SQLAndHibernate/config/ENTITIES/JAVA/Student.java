@@ -7,8 +7,8 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL)
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Student name;
 
     private int age;
