@@ -8,7 +8,7 @@ public class Teacher {
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private String name;
+    private Teacher name;
 
     private int salary;
 
@@ -19,7 +19,7 @@ public class Teacher {
         return id;
     }
 
-    public void setName(String name) {
+    public void setName(Teacher name) {
         this.name = name;
     }
 
@@ -27,7 +27,7 @@ public class Teacher {
         this.id = id;
     }
 
-    public String getName() {
+    public Teacher getName() {
         return name;
     }
 
@@ -48,3 +48,4 @@ public class Teacher {
     }
 
 }
+
