@@ -1,1 +1,3 @@
-
+public enum CourseType {
+    DESIGN,PROGRAMMING,BUSINESS,MARKETING
+}
