@@ -1,3 +1,4 @@
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -33,9 +34,10 @@ public class Main {
 
 
             Root<PurchaseList> root = query.from(PurchaseList.class);
+            query.select(root);
             List<PurchaseList> purchaseLists = session.createQuery(query).getResultList();
 
-            query.select(root);
+
 
             Transaction transaction = session.beginTransaction();
             LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
@@ -43,8 +45,8 @@ public class Main {
             purchaseLists.forEach(purchaseList -> {
                 String courseName = purchaseList.getCourseName();
                 String studentName = purchaseList.getStudentName();
-                String hql = "From" + Student.class.getSimpleName() + " As s where s.name = " + "'" + studentName +"'";
-                String hql2 = "From" + Course.class.getSimpleName() + " As c where c.name = " + "'" + courseName +"'";
+                String hql = "From " + Student.class.getSimpleName() + " As s where s.name = " + "'" + studentName +"'";
+                String hql2 = "From " + Course.class.getSimpleName() + " As c where c.name = " + "'" + courseName +"'";
                 Student student = (Student) session.createQuery(hql).getSingleResult();
                 Course course = (Course) session.createQuery(hql2).getSingleResult();
                 int studentId = student.getId();
