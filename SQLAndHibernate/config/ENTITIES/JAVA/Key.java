@@ -1,9 +1,12 @@
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+
 public class Key implements Serializable {
 
     @Column(name = "student_id")
@@ -11,6 +14,11 @@ public class Key implements Serializable {
 
     @Column(name = "course_id")
     private int courseId;
+
+    public Key(int studentId, int courseId){
+        this.courseId = courseId;
+        this.studentId = studentId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -25,19 +33,5 @@ public class Key implements Serializable {
         return Objects.hash(studentId, courseId);
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
+  
 }
