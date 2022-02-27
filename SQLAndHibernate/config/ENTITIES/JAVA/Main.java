@@ -1,4 +1,3 @@
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,10 +6,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -22,25 +17,22 @@ public class Main {
 
 
 
-
             StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
             Metadata data = new MetadataSources(registry).getMetadataBuilder().build();
 
             SessionFactory sessionFactory = data.getSessionFactoryBuilder().build();
 
             Session session = sessionFactory.openSession();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<PurchaseList> query = builder.createQuery(PurchaseList.class);
 
 
-            Root<PurchaseList> root = query.from(PurchaseList.class);
-            query.select(root);
-            List<PurchaseList> purchaseLists = session.createQuery(query).getResultList();
+
+            List<PurchaseList> purchaseLists = session.createQuery("FROM " + PurchaseList.class.getSimpleName()).getResultList();
 
 
 
             Transaction transaction = session.beginTransaction();
             LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
+            LinkedKey key = new LinkedKey();
 
             purchaseLists.forEach(purchaseList -> {
                 String courseName = purchaseList.getCourseName();
@@ -55,7 +47,6 @@ public class Main {
                 linkedPurchaseList.setCourseId(courseId);
             });
 
-
             session.save(linkedPurchaseList);
             transaction.commit();
             sessionFactory.close();
@@ -64,10 +55,7 @@ public class Main {
             e.printStackTrace();
         }
 
-
-
     }
 
 }
-
 
