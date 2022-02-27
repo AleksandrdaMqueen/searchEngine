@@ -5,7 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
+
 @Entity
 @Setter
 @Getter
@@ -14,7 +14,7 @@ import java.util.Date;
 public class LinkedPurchaseList {
     @EmbeddedId
 
-    private Key id;
+    private LinkedKey id;
     @Column(name = "student_id", insertable = false, updatable = false,nullable = true)
 
     private Integer studentId;
