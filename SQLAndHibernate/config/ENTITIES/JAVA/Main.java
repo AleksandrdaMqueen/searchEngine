@@ -5,6 +5,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class Main {
 
             Transaction transaction = session.beginTransaction();
             LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
-            LinkedKey key = new LinkedKey();
-
+            purchaseLists.forEach(System.out::println);
+            purchaseLists.forEach(System.out::println);
             purchaseLists.forEach(purchaseList -> {
                 String courseName = purchaseList.getCourseName();
                 String studentName = purchaseList.getStudentName();
@@ -43,12 +44,19 @@ public class Main {
                 Course course = (Course) session.createQuery(hql2).getSingleResult();
                 int studentId = student.getId();
                 int courseId = course.getId();
-                linkedPurchaseList.setStudentId(studentId);
-                linkedPurchaseList.setCourseId(courseId);
-            });
+                LinkedKey linkedKey = new LinkedKey(studentId,courseId);
+                linkedPurchaseList.setId(linkedKey);
 
-            session.save(linkedPurchaseList);
+
+
+
+                session.saveOrUpdate(linkedPurchaseList);
+
+
+            });
             transaction.commit();
+
+
             sessionFactory.close();
             session.close();
         }catch (Exception e){
