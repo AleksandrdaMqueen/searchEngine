@@ -35,6 +35,7 @@ public class Main {
             LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
             purchaseLists.forEach(System.out::println);
             purchaseLists.forEach(System.out::println);
+            LinkedKey linkedKey = new LinkedKey();
             purchaseLists.forEach(purchaseList -> {
                 String courseName = purchaseList.getCourseName();
                 String studentName = purchaseList.getStudentName();
@@ -44,7 +45,9 @@ public class Main {
                 Course course = (Course) session.createQuery(hql2).getSingleResult();
                 int studentId = student.getId();
                 int courseId = course.getId();
-                LinkedKey linkedKey = new LinkedKey(studentId,courseId);
+
+                linkedKey.setCourseId(courseId);
+                linkedKey.setStudentId(studentId);
                 linkedPurchaseList.setId(linkedKey);
 
 
