@@ -32,11 +32,12 @@ public class Main {
 
 
             Transaction transaction = session.beginTransaction();
-            LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
+
             purchaseLists.forEach(System.out::println);
-            purchaseLists.forEach(System.out::println);
-            LinkedKey linkedKey = new LinkedKey();
+
+
             purchaseLists.forEach(purchaseList -> {
+                LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
                 String courseName = purchaseList.getCourseName();
                 String studentName = purchaseList.getStudentName();
                 String hql = "From " + Student.class.getSimpleName() + " As s where s.name = " + "'" + studentName +"'";
@@ -45,12 +46,12 @@ public class Main {
                 Course course = (Course) session.createQuery(hql2).getSingleResult();
                 int studentId = student.getId();
                 int courseId = course.getId();
-
+                LinkedKey linkedKey = new LinkedKey();
                 linkedKey.setCourseId(courseId);
                 linkedKey.setStudentId(studentId);
                 linkedPurchaseList.setId(linkedKey);
 
-
+               session.clear();
 
 
                 session.saveOrUpdate(linkedPurchaseList);
