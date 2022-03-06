@@ -1,51 +1,39 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class Main {
 
+    private static final int newWidth = 300;
+    private  static  final String srcFolder = "/users/abake/Desktop/src";
+    private  static  final String dstFolder = "/users/abake/Desktop/dst";
     public static void main(String[] args) {
-        String srcFolder = "/users/sortedmap/Desktop/src";
-        String dstFolder = "/users/sortedmap/Desktop/dst";
-
         File srcDir = new File(srcFolder);
-
-        long start = System.currentTimeMillis();
+        ArrayList<Thread> threads = new ArrayList<>();
 
         File[] files = srcDir.listFiles();
+        int cpuCount = Runtime.getRuntime().availableProcessors();
+        int mid = files.length / cpuCount;
 
-        try {
-            for (File file : files) {
-                BufferedImage image = ImageIO.read(file);
-                if (image == null) {
-                    continue;
-                }
+        for (int i = 0; i < cpuCount; i++) {
 
-                int newWidth = 300;
-                int newHeight = (int) Math.round(
-                    image.getHeight() / (image.getWidth() / (double) newWidth)
-                );
-                BufferedImage newImage = new BufferedImage(
-                    newWidth, newHeight, BufferedImage.TYPE_INT_RGB
-                );
-
-                int widthStep = image.getWidth() / newWidth;
-                int heightStep = image.getHeight() / newHeight;
-
-                for (int x = 0; x < newWidth; x++) {
-                    for (int y = 0; y < newHeight; y++) {
-                        int rgb = image.getRGB(x * widthStep, y * heightStep);
-                        newImage.setRGB(x, y, rgb);
-                    }
-                }
-
-                File newFile = new File(dstFolder + "/" + file.getName());
-                ImageIO.write(newImage, "jpg", newFile);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            File[] files1 = new File[files.length - mid * i];
+            ImageResizer resizer = new ImageResizer(files1, dstFolder,newWidth);
+            threads.add(new Thread(resizer));
         }
+        threads.forEach(thread -> {
+            thread.start();
+            try {
 
-        System.out.println("Duration: " + (System.currentTimeMillis() - start));
+                thread.join();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        });
+        
+      
+
+
     }
 }
