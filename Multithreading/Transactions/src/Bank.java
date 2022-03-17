@@ -19,8 +19,10 @@ public class Bank {
     public void transfer(String fromAccountNum, String toAccountNum, long amount) {
         Account fromAccount = accounts.get(fromAccountNum);
         Account toAccount = accounts.get(toAccountNum);
-        synchronized (fromAccount) {
-            synchronized (toAccount) {
+
+
+        synchronized (fromAccount.compareTo(toAccount) > 0 ? toAccount : fromAccount) {
+            synchronized (fromAccount.compareTo(toAccount) > 0 ? fromAccount : toAccount) {
                 if (amount > 50000){
                     try {
                         boolean isFraud2 = isFraud(fromAccountNum,toAccountNum,amount);
@@ -59,4 +61,6 @@ public class Bank {
     public long getSumAllAccounts() {
         return 0;
     }
+
+
 }
