@@ -1,4 +1,4 @@
-public class Account {
+public class Account implements Comparable<Account> {
 
     private long money;
     private String accNumber;
@@ -17,5 +17,10 @@ public class Account {
 
     public void setAccNumber(String accNumber) {
         this.accNumber = accNumber;
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return this.getAccNumber().compareTo(o.getAccNumber());
     }
 }
