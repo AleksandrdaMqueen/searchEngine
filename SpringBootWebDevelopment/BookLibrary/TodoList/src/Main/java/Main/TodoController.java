@@ -27,11 +27,10 @@ public class TodoController {
         return arrayList;
     }
 
-    
+
     @RequestMapping(value =  "/todos/",method = RequestMethod.POST)
-    public int add(Todo todo){
-        Todo todo1 = todoRepository.save(todo);
-        return todo1.getId();
+    public void add(Todo todo){
+        todoRepository.save(todo);
     }
 
 
