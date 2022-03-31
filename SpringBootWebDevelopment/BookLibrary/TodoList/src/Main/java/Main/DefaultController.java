@@ -18,6 +18,10 @@ public class DefaultCobtroller {
     @Autowired
     TodoRepository todoRepository;
 
+    public DefaultCobtroller(TodoRepository todoRepository){
+        this.todoRepository = todoRepository;
+    }
+
     @RequestMapping("/")
     public String index(Model model){
         Iterable<Todo> todoIterable = todoRepository.findAll();
@@ -29,6 +33,6 @@ public class DefaultCobtroller {
         }
         model.addAttribute("todos", todos);
         model.addAttribute("todosCount", todosCount);
-        return "index";
+        return "todo-add";
     }
 }
