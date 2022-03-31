@@ -1,6 +1,7 @@
 package Main.Model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Todo {
 
     private String name;
@@ -18,8 +20,7 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    public Todo(String name, int id){
-        this.id = id;
+    public Todo(String name){
         this.name = name;
     }
 
