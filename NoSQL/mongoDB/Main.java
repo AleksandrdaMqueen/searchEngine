@@ -1,6 +1,5 @@
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.BsonDocument;
@@ -9,9 +8,12 @@ import org.bson.Document;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Indexes;
+import com.mongodb.client.model.Updates;
 
 public class Main {
 
@@ -47,12 +49,27 @@ public class Main {
             collection.insertOne(document);
         }
 
-        BsonDocument query =  BsonDocument.parse("{age: {$gt: 40}}");
+        BsonDocument query =  BsonDocument.parse("{age: {$gt: 40} }");
+        BsonDocument query2 =  BsonDocument.parse("{age: 1}");
+        BsonDocument query3 =  BsonDocument.parse("{age: -1}");
+
         System.out.println("Кол-во студентов " + collection.countDocuments());
-        System.out.println("Кол-во студентов старше 40:" + collection.find(query).iterator().next().size());
+
+
+        collection.find().sort(query2).limit(1).forEach((Consumer<Document>) document -> {
+            System.out.println("Имя самого молодого студента: " + document.get("name"));
+        });
+        collection.find().sort(query3).limit(1).forEach((Consumer<Document>) document -> {
+            System.out.println("Список курсов самого старого студента: " + document.get("courses"));
+        });
+
+        System.out.println(collection.countDocuments(Filters.gt("age", 40L)));
+
 
 
         collection.drop();
+
+
     }
 
     public static List<String> parseFile(String path) {
@@ -68,3 +85,4 @@ public class Main {
         return lines;
     }
 }
+
