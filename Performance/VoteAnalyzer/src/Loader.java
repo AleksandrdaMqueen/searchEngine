@@ -5,12 +5,14 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Loader {
+public class Loaderr {
 
     private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
     private static SimpleDateFormat visitDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -19,24 +21,31 @@ public class Loader {
     private static HashMap<Voter, Integer> voterCounts = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-        String fileName = "res/data-1M.xml";
+        String fileName = "C:\\Users\\abake\\Desktop\\java_basics-master (1)\\java_basics-master\\Performance\\VoteAnalyzer\\res\\data-18M.xml";
+        long start = System.currentTimeMillis();
+        SAXParserFactory factory= SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        XMLhandler xmLhandler = new XMLhandler();
+        parser.parse(new File(fileName),xmLhandler);
+        xmLhandler.printDuplicated();
+        System.out.println(System.currentTimeMillis() - start  );
 
-        parseFile(fileName);
+//        parseFile(fileName);
 
-        //Printing results
-        System.out.println("Voting station work times: ");
-        for (Integer votingStation : voteStationWorkTimes.keySet()) {
-            WorkTime workTime = voteStationWorkTimes.get(votingStation);
-            System.out.println("\t" + votingStation + " - " + workTime);
-        }
-
-        System.out.println("Duplicated voters: ");
-        for (Voter voter : voterCounts.keySet()) {
-            Integer count = voterCounts.get(voter);
-            if (count > 1) {
-                System.out.println("\t" + voter + " - " + count);
-            }
-        }
+//        //Printing results
+//        System.out.println("Voting station work times: ");
+//        for (Integer votingStation : voteStationWorkTimes.keySet()) {
+//            WorkTime workTime = voteStationWorkTimes.get(votingStation);
+//            System.out.println("\t" + votingStation + " - " + workTime);
+//        }
+//
+//        System.out.println("Duplicated voters: ");
+//        for (Voter voter : voterCounts.keySet()) {
+//            Integer count = voterCounts.get(voter);
+//            if (count > 1) {
+//                System.out.println("\t" + voter + " - " + count);
+//            }
+//        }
     }
 
     private static void parseFile(String fileName) throws Exception {
@@ -81,5 +90,7 @@ public class Loader {
             }
             workTime.addVisitTime(time.getTime());
         }
+
     }
+
 }
