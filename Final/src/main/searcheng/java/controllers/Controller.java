@@ -1,4 +1,4 @@
-package searcheng.controllers;
+package java.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
