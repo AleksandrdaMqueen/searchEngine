@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RestController {
 
 
-    @Value("${indexing-settings.sites.url}")
     private String site;
 
 
