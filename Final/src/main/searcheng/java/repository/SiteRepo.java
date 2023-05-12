@@ -1,6 +1,8 @@
-package java.repository;
+package repository;
 
-import java.model.Site;
+
+
+import model.Site;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
