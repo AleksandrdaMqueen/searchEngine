@@ -1,8 +1,8 @@
-package repository;
+package searcheng.repository;
 
 
 
-import model.Site;
+import searcheng.model.Site;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

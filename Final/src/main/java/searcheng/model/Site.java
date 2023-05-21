@@ -1,11 +1,11 @@
-package model;
+package searcheng.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Table(name = "Site")
 @NoArgsConstructor
@@ -18,11 +18,11 @@ public class Site {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-
+    @Enumerated
     private Status status;
 
 
-    private Date status_time;
+    private LocalDate status_time;
 
     private String lastError;
 

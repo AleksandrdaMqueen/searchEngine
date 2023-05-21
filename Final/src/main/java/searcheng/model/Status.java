@@ -1,4 +1,4 @@
-package model;
+package searcheng.model;
 
 public enum Status {
 
