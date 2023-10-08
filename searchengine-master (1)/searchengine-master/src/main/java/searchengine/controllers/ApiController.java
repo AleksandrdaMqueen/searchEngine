@@ -1,18 +1,20 @@
 package searchengine.controllers;
 
+import lombok.SneakyThrows;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import searchengine.Handlers.LemmaFinder;
 import searchengine.Handlers.UrlJoiner;
 import searchengine.dto.statistics.StatisticsResponse;
-import searchengine.model.Page;
-import searchengine.model.Site;
-import searchengine.model.Status;
+import searchengine.model.*;
+import searchengine.repository.LemmaRepo;
 import searchengine.repository.PageRepo;
 import searchengine.repository.SiteRepo;
 import searchengine.services.StatisticsService;
@@ -20,11 +22,15 @@ import searchengine.services.StatisticsService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+
+    private final LemmaRepo lemmaRepo;
 
     private final SiteRepo siteRepo;
 
@@ -32,10 +38,11 @@ public class ApiController {
 
     private final StatisticsService statisticsService;
 
-    public ApiController(SiteRepo siteRepo,PageRepo pageRepo, StatisticsService statisticsService) {
+    public ApiController(SiteRepo siteRepo,PageRepo pageRepo, StatisticsService statisticsService,LemmaRepo lemmaRepo) {
         this.siteRepo = siteRepo;
         this.pageRepo = pageRepo;
         this.statisticsService = statisticsService;
+        this.lemmaRepo = lemmaRepo;
 
     }
 
@@ -85,14 +92,46 @@ public class ApiController {
             page.setSiteId(site.getId());
             page.setPath(newArr[i]);
             Document doc = Jsoup.connect(newArr[i]).ignoreHttpErrors(true).get();
-            Elements elements = doc.select("a[href]");
-            for (int j = 0; j < elements.size(); j++) {
-                page.setContent(elements.get(j).toString());
-            }
+
+            page.setContent(doc.toString());
+
 
 
             pageRepo.save(page);
         }
+
+
+
+    }
+    @SneakyThrows
+    @PostMapping("/indexPage")
+    public void indexPage(String url){
+          LemmaFinder lemmaFinder = new LemmaFinder();
+
+
+          String cleanText = lemmaFinder.tagCleaner(url);
+          HashMap<String,Integer> lemmas = lemmaFinder.getLemmas(cleanText);
+          List<String> keys = new ArrayList<String>(lemmas.keySet());
+
+         for (int i = 0; i < keys.size(); i++) {
+             Lemma lemma1 = new Lemma();
+             Index index = new Index();
+
+             String key = keys.get(i);
+             int value = lemmas.get(key);
+
+             lemma1.setLemma(key);
+             ArrayList<Lemma> lemmasList  = (ArrayList<Lemma>) lemmaRepo.findAll();
+             if(lemmasList.contains(key)){
+                 lemma1.setLemma(key);
+                 lemma1.setFrequency(lemma1.getFrequency() + 1);
+             }else {
+                 lemma1.setLemma(key);
+                 lemma1.setFrequency(1);
+             }
+             index.setRankc(value);
+
+         }
 
 
     }

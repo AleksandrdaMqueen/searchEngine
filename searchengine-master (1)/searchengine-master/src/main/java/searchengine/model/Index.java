@@ -1,23 +1,28 @@
 package searchengine.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Table(name = "indexx")
 @Entity
 @Data
-@Table(name = "Index")
+@NoArgsConstructor
 public class Index {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
+    @Column(name = "page_id")
     int page_id;
 
+    @Column(name = "lemma_id")
     int lemma_id;
 
-    float rank;
+    @Column(name = "ranc")
+    float rankc;
 
     
 }
