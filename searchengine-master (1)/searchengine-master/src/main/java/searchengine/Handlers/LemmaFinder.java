@@ -44,8 +44,6 @@ public class LemmaFinder {
     public String  tagCleaner(String url) throws IOException {
         Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
 
-        String cleanText = doc.text();
-
-        return cleanText;
+        return doc.text();
     }
 }

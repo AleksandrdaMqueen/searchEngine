@@ -14,6 +14,7 @@ import searchengine.Handlers.LemmaFinder;
 import searchengine.Handlers.UrlJoiner;
 import searchengine.dto.statistics.StatisticsResponse;
 import searchengine.model.*;
+import searchengine.repository.IndexRepo;
 import searchengine.repository.LemmaRepo;
 import searchengine.repository.PageRepo;
 import searchengine.repository.SiteRepo;
@@ -36,13 +37,16 @@ public class ApiController {
 
     private final PageRepo pageRepo;
 
+    private final IndexRepo indexRepo;
+
     private final StatisticsService statisticsService;
 
-    public ApiController(SiteRepo siteRepo,PageRepo pageRepo, StatisticsService statisticsService,LemmaRepo lemmaRepo) {
+    public ApiController(SiteRepo siteRepo,PageRepo pageRepo, StatisticsService statisticsService,LemmaRepo lemmaRepo, IndexRepo indexRepo) {
         this.siteRepo = siteRepo;
         this.pageRepo = pageRepo;
         this.statisticsService = statisticsService;
         this.lemmaRepo = lemmaRepo;
+        this.indexRepo = indexRepo;
 
     }
 
@@ -129,8 +133,10 @@ public class ApiController {
                  lemma1.setLemma(key);
                  lemma1.setFrequency(1);
              }
-             index.setRankc(value);
 
+             index.setRankc(value);
+             lemmaRepo.save(lemma1);
+             indexRepo.save(index);
          }
 
 
