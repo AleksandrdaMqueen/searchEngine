@@ -15,25 +15,21 @@ public class LemmaFinder {
 
     public HashMap<String, Integer> getLemmas(String text) throws IOException {
 
-        String[] splittedText = text.replaceAll("\\p{P}", "").split(" ");
+        String[] splittedText = text.replaceAll("\\p{P}\\D\\.,:", "").split(" ");
         HashMap<String, Integer> res = new HashMap<>();
         for (String word: splittedText)
-
         {
             LuceneMorphology luceneMorph =
                     new RussianLuceneMorphology();
-
+            if(isCyrillic(word)) {
                 List<String> wordBaseForms1 =
                         luceneMorph.getMorphInfo(word.toLowerCase(Locale.ROOT));
-            if(wordBaseForms1.toString().split(" ").length == 2){
-                continue;
-            }else {
-
                 List<String> wordBaseForms =
                         luceneMorph.getNormalForms(word.toLowerCase(Locale.ROOT));
 
                 res.put(word, wordBaseForms.size());
             }
+
         }
 
         return  res;
@@ -45,5 +41,16 @@ public class LemmaFinder {
         Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
 
         return doc.text();
+    }
+
+    public boolean isCyrillic(String s) {
+        boolean result = false;
+        for (char a : s.toCharArray()) {
+            if (Character.UnicodeBlock.of(a) == Character.UnicodeBlock.CYRILLIC) {
+                result = !result;
+                break;
+            }
+        }
+        return result;
     }
 }

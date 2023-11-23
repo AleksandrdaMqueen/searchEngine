@@ -112,11 +112,10 @@ public class ApiController {
     public void indexPage(String url){
           LemmaFinder lemmaFinder = new LemmaFinder();
 
-
           String cleanText = lemmaFinder.tagCleaner(url);
           HashMap<String,Integer> lemmas = lemmaFinder.getLemmas(cleanText);
           List<String> keys = new ArrayList<String>(lemmas.keySet());
-
+        System.out.println(keys.size() + "aaaaaaaaaaaaaaaaaaaaaaaaaa");
          for (int i = 0; i < keys.size(); i++) {
              Lemma lemma1 = new Lemma();
              Index index = new Index();
@@ -125,6 +124,7 @@ public class ApiController {
              int value = lemmas.get(key);
 
              lemma1.setLemma(key);
+             lemma1.setSite_id(1);
              ArrayList<Lemma> lemmasList  = (ArrayList<Lemma>) lemmaRepo.findAll();
              if(lemmasList.contains(key)){
                  lemma1.setLemma(key);
