@@ -13,8 +13,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(Application.class, args);
-        LemmaFinder lemmaFinder = new LemmaFinder();
-        System.out.println(lemmaFinder.getLemmas("повторное появление леопарда в Осетии позволяет предположить, что леопард постоянно обитает в некоторых районах Северного Кавказа."));
+
 
 
     }

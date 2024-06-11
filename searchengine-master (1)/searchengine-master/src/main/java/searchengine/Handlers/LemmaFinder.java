@@ -4,18 +4,16 @@ import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import searchengine.model.Lemma;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class LemmaFinder {
 
     public HashMap<String, Integer> getLemmas(String text) throws IOException {
 
-        String[] splittedText = text.replaceAll("\\p{P}\\D\\.,:", "").split(" ");
+        String[] splittedText = text.replaceAll("[^\\p{L}\\s]+", "").split("\\s+");
         HashMap<String, Integer> res = new HashMap<>();
         for (String word: splittedText)
         {
@@ -43,7 +41,7 @@ public class LemmaFinder {
         return doc.text();
     }
 
-    public boolean isCyrillic(String s) {
+    private boolean isCyrillic(String s) {
         boolean result = false;
         for (char a : s.toCharArray()) {
             if (Character.UnicodeBlock.of(a) == Character.UnicodeBlock.CYRILLIC) {
@@ -52,5 +50,14 @@ public class LemmaFinder {
             }
         }
         return result;
+    }
+
+    public ArrayList<String> lemmaFreqency(HashMap<String, Integer> lemmasAndFreq){
+        ArrayList<String> lemmas = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : lemmasAndFreq.entrySet()) {
+            String key = entry.getKey();
+            lemmas.add(key);
+        }
+     return lemmas;
     }
 }
