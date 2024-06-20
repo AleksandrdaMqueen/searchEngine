@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     username: root
-    password: polar12Bear
-    url: jdbc:mysql://localhost:3306/todopring?useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+    password: 1234
+    url: jdbc:mysql://localhost:3306/lyceum?useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
   jpa:
     properties:
       hibernate:

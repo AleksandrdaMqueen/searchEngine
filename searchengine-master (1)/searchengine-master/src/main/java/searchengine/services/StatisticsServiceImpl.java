@@ -1,6 +1,7 @@
 package searchengine.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchengine.config.Site;
 import searchengine.config.SitesList;
@@ -8,6 +9,10 @@ import searchengine.dto.statistics.DetailedStatisticsItem;
 import searchengine.dto.statistics.StatisticsData;
 import searchengine.dto.statistics.StatisticsResponse;
 import searchengine.dto.statistics.TotalStatistics;
+import searchengine.repository.IndexRepo;
+import searchengine.repository.LemmaRepo;
+import searchengine.repository.PageRepo;
+import searchengine.repository.SiteRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,19 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     private final Random random = new Random();
     private final SitesList sites;
+
+    @Autowired
+    SiteRepo siteRepo;
+
+    @Autowired
+    PageRepo pageRepo;
+
+    @Autowired
+    LemmaRepo lemmaRepo;
+
+    @Autowired
+    IndexRepo indexRepo;
+
 
     @Override
     public StatisticsResponse getStatistics() {
@@ -40,8 +58,8 @@ public class StatisticsServiceImpl implements StatisticsService {
             DetailedStatisticsItem item = new DetailedStatisticsItem();
             item.setName(site.getName());
             item.setUrl(site.getUrl());
-            int pages = random.nextInt(1_000);
-            int lemmas = pages * random.nextInt(1_000);
+            int pages = Long.valueOf(pageRepo.count()).intValue();
+            int lemmas = 1;
             item.setPages(pages);
             item.setLemmas(lemmas);
             item.setStatus(statuses[i % 3]);

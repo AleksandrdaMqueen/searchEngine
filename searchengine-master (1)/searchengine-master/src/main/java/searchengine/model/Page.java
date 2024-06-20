@@ -1,5 +1,6 @@
 package searchengine.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,8 +9,7 @@ import javax.persistence.*;
 
 @Table(name = "Page")
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 public class Page {
 
@@ -28,4 +28,43 @@ public class Page {
 
     @Column(name = "path",columnDefinition = "MEDIUMTEXT")
     private String path;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setSiteId(int siteId) {
+        this.siteId = siteId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getCode() {
+        return code;
+    }
+    public int getSiteId() {
+        return siteId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getPath() {
+        return path;
+    }
 }

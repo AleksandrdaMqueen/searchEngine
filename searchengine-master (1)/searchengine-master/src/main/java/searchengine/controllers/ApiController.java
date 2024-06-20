@@ -1,21 +1,17 @@
 package searchengine.controllers;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import searchengine.Handlers.LemmaFinder;
 import searchengine.Handlers.UrlJoiner;
-import searchengine.dto.statistics.DetailedStatisticsItem;
-import searchengine.dto.statistics.StatisticsData;
+import searchengine.config.Site;
+import searchengine.config.SitesList;
 import searchengine.dto.statistics.StatisticsResponse;
-import searchengine.dto.statistics.TotalStatistics;
 import searchengine.model.*;
 import searchengine.repository.IndexRepo;
 import searchengine.repository.LemmaRepo;
@@ -25,15 +21,15 @@ import searchengine.services.StatisticsService;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+
+    @Autowired
+    SitesList sitesList;
 
     private final LemmaRepo lemmaRepo;
 
@@ -56,15 +52,14 @@ public class ApiController {
 
     @GetMapping("/statistics")
     public StatisticsResponse statistics() {
-        StatisticsResponse response = new StatisticsResponse();
 
 
-        return response;
+        return statisticsService.getStatistics();
     }
 
     @SneakyThrows
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam  String query, @RequestParam String site, @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "20") int limit){
+    public ResponseEntity<?> search(@RequestParam  String query, @RequestParam String site, @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "20") int limit) throws IOException {
         LemmaFinder lemmaFinder = new LemmaFinder();
 
         ArrayList<Page> pages = (ArrayList<Page>) pageRepo.findAll();
@@ -77,9 +72,6 @@ public class ApiController {
         ArrayList<String> lemmas = lemmaFinder.lemmaFreqency(lemmasAndFreq);
 
 
-
-
-
         for (int i = 0; i < pages.size(); i++) {
             for (int j = 0; j < lemmas.size(); j++) {
 
@@ -89,63 +81,63 @@ public class ApiController {
                 }
             }
         }
-
-        return null;
+        return new ResponseEntity<>(containsLemma, HttpStatus.OK)  ;
     }
     @GetMapping("/startIndexing")
     public void startIndexing() throws IOException {
-        Site site = new Site();
 
-        String url = "http://www.playback.ru/";
+        List<Site> sites = sitesList.getSites();
 
-        site.setName(url);
-        site.setStatus_time(LocalDate.now());
-        site.setStatus(Status.INDEXING);
+        sites.forEach(site ->{
+            SiteModel siteModel = new SiteModel();
+            siteModel.setStatus_time(LocalDate.now());
+            siteModel.setStatus(Status.INDEXING);
+            siteModel.setName(siteModel.getName());
+            siteModel.setUrl(site.getUrl());
+            siteRepo.save(siteModel);
 
-        siteRepo.save(site);
+            String map = new ForkJoinPool().invoke(new UrlJoiner(sites.get(0).getUrl()));
+            System.out.println(map);
 
-        String map = new ForkJoinPool().invoke(new UrlJoiner(url));
-        System.out.println(map);
+            String[] siteMap = map.split("\n");
 
-        String[] siteMap = map.split("\n");
-
-        System.out.println(siteMap.length);
-        System.out.println(siteMap[5]);
-        String[] newArr = null;
-        for (int i = 0; i < siteMap.length-1; i++) {
-            if(siteMap[i] ==  siteMap[1]){
-                newArr = new String[siteMap.length - 1];
-                for(int index = 0; index < i; index++){
-                    newArr[index] = siteMap[index];
+            System.out.println(siteMap.length);
+            System.out.println(siteMap[5]);
+            String[] newArr = null;
+            for (int i = 0; i < siteMap.length-1; i++) {
+                if(siteMap[i] ==  siteMap[1]){
+                    newArr = new String[siteMap.length - 1];
+                    for(int index = 0; index < i; index++){
+                        newArr[index] = siteMap[index];
+                    }
+                    for(int j = i; j < siteMap.length - 1; j++){
+                        newArr[j] = siteMap[j+1];
+                    }
+                    break;
                 }
-                for(int j = i; j < siteMap.length - 1; j++){
-                    newArr[j] = siteMap[j+1];
-                }
-                break;
             }
-        }
-        for (int i = 0; i < newArr.length-1; i++) {
-            Page page = new Page();
-            siteMap[i].replaceAll("\\s+","");
-
-            page.setCode(HttpStatus.OK.value());
-            page.setSiteId(site.getId());
-            page.setPath(newArr[i]);
-            Document doc = Jsoup.connect(newArr[i]).ignoreHttpErrors(true).get();
-
-            page.setContent(doc.toString());
-
-
-
-            pageRepo.save(page);
-        }
-
+            for (int i = 0; i < newArr.length-1; i++) {
+                Page page = new Page();
+                siteMap[i].replaceAll("\\s+","");
+                page.setCode(HttpStatus.OK.value());
+                page.setSiteId(siteModel.getId());
+                page.setPath(newArr[i]);
+                Document doc = null;
+                try {
+                    doc = Jsoup.connect(newArr[i]).ignoreHttpErrors(true).get();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                page.setContent(doc.toString());
+                pageRepo.save(page);
+            }
+        });
 
 
     }
     @SneakyThrows
     @PostMapping("/indexPage")
-    public void indexPage(String url){
+    public void indexPage(String url) throws IOException {
           LemmaFinder lemmaFinder = new LemmaFinder();
 
           String cleanText = lemmaFinder.tagCleaner(url);

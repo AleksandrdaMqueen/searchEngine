@@ -12,6 +12,9 @@ public class UrlJoiner extends RecursiveTask<String> {
     String url;
 
     public UrlJoiner(String url) {
+
+
+
         this.url = url;
     }
 
