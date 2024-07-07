@@ -1,14 +1,14 @@
 package searchengine.model;
 
+
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Table(name = "indexx")
 @Entity
 @Data
-@NoArgsConstructor
 public class Index {
 
     @Id

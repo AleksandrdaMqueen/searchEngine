@@ -1,6 +1,6 @@
 package searchengine.controllers;
 
-import lombok.SneakyThrows;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class ApiController {
         return statisticsService.getStatistics();
     }
 
-    @SneakyThrows
+
     @GetMapping("/search")
     public ResponseEntity<?> search(@RequestParam  String query, @RequestParam String site, @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "20") int limit) throws IOException {
         LemmaFinder lemmaFinder = new LemmaFinder();
@@ -135,7 +135,6 @@ public class ApiController {
 
 
     }
-    @SneakyThrows
     @PostMapping("/indexPage")
     public void indexPage(String url) throws IOException {
           LemmaFinder lemmaFinder = new LemmaFinder();

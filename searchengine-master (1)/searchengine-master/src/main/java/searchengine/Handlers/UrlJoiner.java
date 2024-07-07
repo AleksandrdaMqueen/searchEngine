@@ -23,7 +23,7 @@ public class UrlJoiner extends RecursiveTask<String> {
         StringBuilder list = new StringBuilder();
         Document doc = null;
         try {
-            doc = Jsoup.connect(url).maxBodySize(0).get();
+            doc = Jsoup.connect(url).timeout(3000).maxBodySize(0).get();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,14 +1,12 @@
 package searchengine.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Table(name = "Site")
-@NoArgsConstructor
-@Data
+
 @Entity
 public class SiteModel {
 
